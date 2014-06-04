@@ -1,0 +1,1474 @@
+et sammensurium av norsk og engelsk - lagd av Magne Matre Gåsland våren 2007
+
+----------
+LAYERS
+----------
+Application			provides services to applications		(DNS, email, WWW, HTTP/WAP)
+Transport			hides transport network from its user		(segments, PRIMITIVES, end hosts, QoS, provides SOCKETS, TCP/UDP)
+Network				gets packets from source to dest 		(packets, Routing, fragmenting, internetworking, VC, adressing, IP)
+Data Link - LLC og MAC		makes raw bit stream into manageable frames	(frames, CRC, ACK/NAK, flow control, error detect/correct, access control, HDLC)
+Physical			basis for datacommunication. signal converting  (raw bit streams, analog/digital encoding/decoding, Spectrum modulizing, timing, physical medium considerations)
+----------
+Multimedia
+----------
+
+OSI reference model
+	Each entity interacts directly with the layer beneath it, and provides services to the layer directly above it.
+	Protocols enable an entity in one host to interact with a corresponding entity at the same layer in a remote host.
+
+FUNKSJONER:
+
+Application
+	Inneholder software som støtter menneske-maskin grensesnitt
+Transport
+	Addressing
+	Connection establishment/release
+	Multiplexing
+	Flow control and buffering
+	Possible: Error control for improved QoS
+Network
+	Routing and forwarding
+	Addressing + converting of logical to physical addresses
+	Fragmentering/reassembly
+	Internetworking
+Data Link
+	Framing
+	Overføringsfeil
+	Flow Control
+Physical
+	"raw bit streams". Definerer de mekaniske-, elektriske- og timing-interfacene til nettverket.
+
+
+
+
+
+
+
+
+
+
+
+
+FUNDAMENTAL CONCEPTS AND DISTINCTIONS
+
+Communication -  the formulation, sending, reception and interpretation of meaning or information between entities.
+Telecommunication - the communication over distance.
+Communication network - a set of devices or nodes connected by communication links, which provides a service: the transfer of information between users located at various geographical points.
+
+Transport - end-to-end connectivity (no required intermediate interpretation)
+Network - packet delivery: provides end-to-end service (to transport layer)
+Data Link - node-to-node
+
+Mobile Network -  means the facilities operated by a carrier for the purposes of providing public mobile telecommunications services.
+Mobile Computing - being able to use a computing device even when being mobile and therefore changing location. Portability is one aspect of mobile computing.
+
+Protocol - A communications protocol is the set of standard rules for data representation, signalling, authentication and error detection required to send information over a communications channel.
+
+Reliability - (of data transmission) involves error detection and correction, or some means of requesting retransmission.
+
+PDU  -  A message encapsulation format where there are several bytes of header added to the front of the payload message.
+	Information that is delivered as a unit among peer entities of a network and that may contain control information, address information, or data.
+	In layered systems, a unit of data that is specified in a protocol of a given layer and that consists of protocol-control information of the given layer and possibly user data of that layer.
+
+Switching - the way the link transmission capacity and node resources are allocated for the transfer of information.
+
+Layer – A subsystem of a certain rank offering certain services to the layer above.
+Service – Defines what a layer offers externally to the layer above.
+Interface – Between each pair of adjacent layers and defines services the lower layer provides to the upper layer
+Protocol – Set of rules and formats (syntax and semantics) that determine the behavior between peer entities.
+(Protocol) Entity – An active unit within a layer, handling a protocol within a specific device.
+
+Network Topologies – Mesh, Bus, Star, Ring, Hybrid.
+
+
+
+-----------
+Application
+-----------
+
+* Inneholder software som støtter menneske-maskin grensesnitt.
+  Avhenger av tjenester tilbudt av lavere lag og tjenester i eget lag (eks. DNS)
+  Bruker program-til-program protokoller.
+
+* DNS er:
+	1 hierarkisk, domenebasert navngivingssystem fordelt på servere rundt om i verden.
+	2 distribuert databasesystem brukt som katalog for DNS-navn med tilhørende IP adresser
+	Funksjon: mappe tekstnavn til til IP-adresser.
+
+	Et domenenavn kan være absolutt eller relativt. hvis det er absolutt slutter det med et punktum.
+
+	DNS Name Space. ca 200 overordnede nivåer. delt inn i ikke-overlappende soner, hver med en eller flere DNS-servere.
+	 - Generic (topic related) .com .org
+	 - Countries .no .it (iflg. ISO 3166)
+	 ordered from bottom up (f.eks person.kristiansand.no)
+	 logisk distribuert navngivning iflg. organisatoriske ikke geografiske/fysiske grenser.
+	 hver sone har en primær DNS server som lagrer resource records lokalt, og evt. sekundære servere som henter fra primærserveren og cacher disse.
+	 vanlig å ha servere utenfor sonen, gir økt trygghet.
+	 
+	Resource Records - DNS har disse til hvert domenenavn.
+	 Lagret som binære filer.
+	 Blir gitt ut etter forespørsel.
+	 Inneholder:
+	   Domain name
+	   Time to live (indikerer stabiliteten. brukt til caching)
+	   Class (normalt verdi 'IN' for Internet)
+	   Type (typen til verdien lagret i value feltet)
+	   Value
+	 Typeoversikt for IPv4 i Fig.7-2 Tannenbaum. Eks. type TXT betyr verdi 'utolket ASCII text', type A betyr verdi '32-bit int' som er IP til en vert.
+	 DNS databaseeksempel Fig.7-3 i Tannenbaum.
+	 
+
+* RFC - Request For Comments
+	tekniske rapporter fra IAB som foreslår standarder.
+	
+	IAB - Internet Architecture Board
+		reorganisert i 1989. ble til:
+			IRTF - Internet Research Task Force (long term research issues)
+			IETF - Internet Engineering Task Force (short term engineering issues)
+
+* E-mail
+	Fem hovedfunksjoner:
+	 -Komposisjon - komponere beskjeder
+	 -OVerføring - overføring av beskjeder, inkl. opprette/bryte ned forbindelser
+	 -Rapportering - rapporterer leveringsstatus (levert, lest, avvist)
+	 -Fremvisning - viser innkommende beskjeder, inkl. bilder, videoklipp osv.
+	 -Disposisjon - brukerhåndtering av beskjeder (kaste før lese, kaste etter lest, lagre osv)
+
+	
+	Historie
+	 første e-mail systemer >20 år siden. brukt til filoverføring.
+	 første linja i den overførte filen inneholdt mottakeradressen.
+	 standardisert som del av ARPANET i RFC 821 (protokollen) og RFC 822 (beskjedformatet)
+	 CCITs X.400 introdusert i 1984. floppet pga komplekst.
+	
+	User Agent
+	 støtter funksjonalitet for å:
+	  - lage og sende beskjeder
+	  - motta beskjeder
+	  - arkivere beskjeder
+	 e-mails menneske-maskin-grensesnitt.
+	
+	Message Transfer Agent (deamon)
+	 overfører beskjedene fysisk fra sender til mottaker(e)
+	 kjører i form av lokale daemons som lytter etter beskjeder på TCP port 25.
+
+	Message organization:
+	 envelope - adressing info + handling info (priority, encryption)
+	 content - header (MIME info) + body (real message content visible to human recipient)
+
+	MIME - Multipurpose Internet Mail Extension
+	 5 new message headers (extensions). endrer ikke på RFC 822, bakoverkompatibelt.
+	 definerer enkodingregler for ikke-ASCII beskjedinnhold.
+	 beskriver kontekstspesifikk utveksling av info over mail og internet
+	 User Agents må støtte den nye funksjonaliteten for å dra nytte av den.
+	 Behøves pga 7-bit ASCII sliter med:
+	  språk med akksenter (fransk, tysk)
+	  språk med ikke-latinske alfabet (hebraisk, russisk)
+	  språk uten alfabet (kinesisk, japansk)
+	  beskjeder uten tekst (audio, bilder)
+	 Fig.7-11 Tannenbaum for MIME-header-beskrivelse.
+	
+	  Content Transfer-Encoding
+	   base64 encoding - grupper med 24 bits (tre 8-bit ASCII) blir brutt ned til 4 6-bits enheter som 7-bit ASCII takler.
+			     Ueffektivt for beskjeder som er nesten helt ASCII, men med noen ikke-ASCII karakterer (f.eks norsk)
+			     ACII armor er annet navn på denne.
+	   quoted-printable encoding - 7-bit ASCII, men karakterer med ASCII-verdi > 127 blir kodet som likhetstegn pluss to heksadesimale sifre (f.eks 'æ' blir '=6E')
+
+	Message Transfer Protocol
+		SMTP - Simple Mail Transfer Protocol (simple ASCII protocol)
+		On mail server: deamon som lytter på TCP port 25
+		Klienter kobler til mailserver på TCP port 25 for å sende beskjeder og/eller sjekke inboksen.
+		POP3 - Post Office Protocol Version 3
+			user agent hos klient kobler til TCP port 110 på mailserveren
+			3 tilstander: autorisasjon (login), transaksjon (kopiere mail til klient) og oppdatering (slette mail fra server)
+			uhensiktsmessig når man bruker flere maskiner til å lese mail, mail blir spredt over alle maskinene
+		IMAP - Internet Message Access Protocol
+			bruker TCP port 143
+			email forblir på server etter de har blitt lest
+			mulig å lese bare deler av beskjeder
+			bruker kan håndtere flere mailbokser på serveren
+
+	Delivery Features
+	 Auto-reply
+	 Auto-forward
+	 Filtering
+
+	Webmail
+	 spesifikke e-mailhåndterende websider
+	 dynamisk HTML på brukersiden (AJAX)
+	 login (username/password)
+	 mailboks formatert som websider med lenker for å aksessere mail
+
+* WWW
+	En internet-applikasjon som lenker verdensomspennende distribuert multimediainformasjon
+	1989 - Startet som en effektiv måte å distribuere fysikkdata fra CERN til forskjellige land og steder.
+	En global samling websider.
+	Referert til ved URL.
+	Presentert i browsere.
+	Mulighet for hyperlinks.
+	
+	Browser - webklientapplikasjon
+		fleste grafiske
+		noen ikke-grafiske som WAP
+		hovedfunksjonalitet:
+		 - finne IP ved bruk av DNS
+		 - hente websider ved bruk av HTTP
+		 - hente websider og presentere dem ved bruk av HTML
+		 - følge hyperlenker (URLs)
+		 - starte ikke-HTML-applikasjoner (eks. plugins)
+		Plugins utvider browserfunksjonliteten ved å takle flere MIME-typer. Det kan også hjelpeapplikasjoner, men disse blir bare kalt uavhengig fra browseren.
+		Plugins er integrert i browseren, det er ikke hjelperapplikasjoner.
+		Plugins fjernes fra browserminnet når man ikke trenger dem lenger. (lukker websiden som bruker dem)
+	
+	URL - Uniform Resource Locator
+		består av tre deler: protokoll, DNSnavn og filsti/navn.
+		Vanlige URLprotokoller: http, ftp, file, news, mailto, telnet
+		Deficiency:
+		 Spesifiserer en og bare en vert (location-specific)
+		 Dette gjør det vanskelig å bruke replikasjon (spre en nettside over flere servere) for å begrense serverlasten.
+		 IETF undersøker mulighetene for URN (Universal Resource Names) for å løse dette problemet
+	
+	Statelessness and Cookies
+		De fleste websider har ingen brukeridentifisering
+		Når en webside er lastet ned har webserveren ingen informasjon om klienten
+		For komplekse websider (netthandel osv.) er dette utilstrekkelig
+		
+		Cookies introdusert av Netscape for å løse dette.
+			lagret som filer på klientmaskinen i brukerspesifikk cookie-mappe
+			når en bruker spesifiserer en URL i browseren, søker den etter en cookie med domenenavnet, og laster den i tilfellet opp sammen med sideforespørselen.
+			generert/oppdatert på serversiden og lastet ned med websiden
+			på denne måten kan en server/webside "huske" klienten
+			kan bli misbrukt til å spore sidene en bruker besøker
+			browseren kan bli konfigurert til å ikke bruke cookies, men dette kan redusere funksjonaliteten.
+
+	HTML
+		definerer innhold og presentasjon
+		markup language - inneholder intruksjoner (her kalt tags) for formatering
+		innehold er ren tekst, med referanser til eksterne objekter og hyperlinker
+		tags brukes for å spesifisere: overskrifter, tekst, tabeller, lister, bilder, hyperlenker, skjemaer, inkludering av video/audio/applets/activeX-kontrollere og andre objekter.
+	
+	Static Web Pages
+		lagret som statiske sider (HTML, jpg osv.)
+		download er bare en filhentingsoperasjon, uten prosessering av innhold underveis
+	Dynamic Web Pages
+		generert på serveren av et script før nedlasting
+		sideinnhold kan være resultat av databasespørring basert på brukerinput (f.eks søk)
+		Scriptspråk:
+			CGI - Common Gateway Interface script (interface mellom server og database)
+			PHP - bruker egne tags tolket av en PHP pre-prosessor som kjører oppå HTML-parseren.
+			JSP - bruke java i scriptlignende miljø. kompilert kode kjørt med JVM
+			ASP - bruker Microsofts privateide scriptspråk, VisualBasic. Kan også bruke javascript.
+
+	Dynamic HTML - client-side dynamic behaviour
+		dynamisk oppførsel av en side i browseren - f.eks flytte musepeker over peker-sensitive områder utfører et handlingskall
+		kan bli støttet ved:
+			JavaScript innebygd i HTML
+			Java Applets (<applet> tag i HTML) som kjører på JVM-interpreter
+			ActiveX kontrollere som er kompilert maskinkode
+	
+	HTTP
+	 	Håndterer:
+	  	 informasjon om browser og platform, cookies overføring/oppdatering/lagring, dato, serverinfo, innholdsenkoding, innholdsspråk osv.
+		ASCII-tekst basert på forespørsler og svar
+	 	minneløs protokoll
+		forbindelse basert på TCP (men kan også bruke UDP! UPnP gjør dette)
+		HTTP 1.0 krevde disconnect av TCP-forbindelse mellom hver forespørsel (ueffektivt)
+		HTTP 1.1 støtter vedvarende forbindelser og pipelining av forespørsler (flere forespørsler kan bli sendt før svar mottas)
+		Web-browsere kan sette opp flere HTTP/TCP-forbindelser i parallell
+		Eksempel:
+		 Browser bruker GET-metoden for å hente en HTML-side fra en webserver.
+		 Accept-headeren forteller en server hvilke typer innhold en browser kan håndtere.
+		 Server-headeren forteller browseren hvilken type server det er.
+		 Content-length-headeren forteller hvor mye innhold serveren returnerer til klienten.
+	
+	Caching - performance enhancement
+		saves pages requested, in case requested again
+		Proxy can be used to cache pages, and browser can be configured to make requests through the proxy
+		hierarkisk caching med tre proxyer: klient, LAN og ISP
+
+	CDN and server replication
+		Server replication (mirroring): 
+		 server side performance improvement, replicate content at multiple, widely-spread locations
+		CDN - Content Delivery Network
+		 Sikrer websider mot flash-crowds (web-fenomen der en relativt anonym side blir kjempepopulær) mot betaling.
+		 CDN-bedrifter setter opp fjernstyrte servere hos ISP'er med speilet innhold fra websider (musikksider, aviser). Bra for ISP fordi kundene får rask tilgang til dette.
+		 
+	
+	WAP - Wireless Application Protocol
+		Slik at mobiltlf, PDA, håndholdte PC'er osv. kan komme seg på nett via WAP-Gateways.
+		Tilpasset treg CPU, lite minne, liten skjerm, trådløse enheter.
+		WAP 2.0 brukes idag. Støtter: push-model, integrasjon av tlf i programmer, MMS, pictogrammer, interface mot lagringsenhet, plugins i browser.
+		WAP bruker:
+		 WML - Wireless Markup Language (basert på XML)
+		 WDP - Wireless Datagram Protocol
+	I-Mode - Information Mode
+		Konkurrent til WAP, fungerer på lignende måte (tilgang til websider som bruker compactHTML)
+		Populært i Japan.
+		Basert på pakkesvitsjing.
+		Var lukket og privat system med dedikerte apparater, blir nå mer åpent.
+
+---------
+Transport
+---------
+
+Hjertet til protokollhierarkiet!
+
+* Målet er å tilby en effektiv, pålitelig og kost-effektiv datatransport til brukerne (via applikasjonene).
+  Et interface mot det egentlige nettverket. Gjemmer det egentlige nettverket for sine brukere.
+  Veldig likt med nettverkslaget, men vi trenger begge. Nettverkslaget er lagd for routere (som ikke styres av brukere), og er ikke tilrettelagt for programmeringsbruk.
+  Når nettverkslaget feiler må transportlaget sørge for å bedre prosessen (QoS).
+  Nettverkslagets tjenester kan variere fra nettverk til nettverk. Da er det greit med et fleksibelt interface som dette.
+  Programmerere er på en god måte skjermet fra nettverkslaget gjennom transportlagets "primitives".
+  Transportlaget er praktisk og enkelt å bruke for programmerere.
+
+* Transporttjenesten modellerer ikke tjenesten tilbudt av virkelige nettverk, slik som nettverkslaget gjør, og er derfor mer pålitelig.
+  Transportlaget "maskerer" upålitelige nettverk.
+  Applikasjonene kan stole på at alle pakkene de sender kommer korrekt frem, og trenger ikke bekymre seg med ACK/NAK, timeouts osv.
+  
+* Funksjoner:
+	Addressing
+	Connection establishment
+	Connection release
+	Multiplexing
+	Flow control and buffering
+
+* TPDU - Transport Protocol Data Unit. Headeren er innenfor packet-headeren.
+
+* TCP og UDP er Transportlagsprotokoller.
+
+* PRIMITIVES: LISTEN, CONNECT, SEND, RECIEVE, DISCONNECT.
+
+* Berkley sockets. SOCKET lager nytt TSAP. BIND binder socket til adresse(port).
+  SOCKET address = NSAP address + PORT address
+  BIND brukes da enkelte tjenester ønsker en spesiell adresse og må kunne be om den.
+  Her er LISTEN ikke et blokkerende kall, bare en køallokator. ACCEPT er det blokkerende kallet som venter på inngående forbindelser.
+  CLOSE er tilsvarende DISCONNECT 
+
+* Socket vs port:
+	Socket is composed of protocol, ip-adress, port, remote ip-adress, remote port.
+	Ports indicates the process/application in each end.
+	Operating systems provide applications with sockets they can use to send and recieve data over the network.
+	Cisco definition, "The combination of an IP address and a port number is referred to as a socket."
+
+* TSAP - Transport Service Access Point - (PORT/SOCKET. ambiguity in book. wikipedia says socket)
+  NSAP - Network Service Access Point (IP address)
+
+* Process server - lytter på diverse porter for tjenester, og vekker/setter i gang tjenestene hvis det kommer en forespørsel.
+* Initial Connection Protocol - overlater avsluttede/feilede tilbkoblinger til process server
+* Name server / Directory server - "yellow pages". noen tjenester opererer helt uavhengig av process serveren. Da kan en name/directory server brukes på tilsvarende måte, og "mappe" innkommende forespørsler til riktig tjeneste.
+
+* Connection Establishment
+	Pakker som lever evig skaper problemer, derfor må vi begrense levetiden T:
+	1 Restricted subnet design - pakker kan ikke loope, eller overstige en delay tilsvarende longest possible path.
+	2 Hop counter in each packet - pakker dør når den har brukt opp ant. tillatte hopp. Rutere dekrementerer counteren.
+	3 Timestamping each packet - pakker er stemplet med creation time, og routerne er synkronisert. Sync er en vanskelig oppgave som må gjøres eksternt (eks.broadcast via gps,radio).
+	
+	I tillegg må vi sørge for at alle overflødige ACKs også dør. Bruker en timeout som bestemmes av protokollen.
+	
+	Tomlinsons løsning: 
+	 Hver vert har en klokke som inkrementerer etter uniforme intervall. Disse trenger ikke være synca.
+	 Ant. bits i klokka må være >= ant. bits i sekvensnr.
+	 Klokken må gå selv om verten krasjer!
+	 TPDU k-bits sekvensnr bestemmes av k lavordens bit fra klokka.
+	 Hvis 2 TPDU med samme sekvensnr eksisterer blir en kastet.
+	 Når begge transportentiteter har bestemt seg for initiellt sekvensnr kan hvilken som helst sliding window protokoll brukes for dataflytkontroll.
+	 Forbidden region:
+	  Restriksjon på hvilke sekvensnr som er lovlige til enhver tid, slik at ved krasj unngår man at to forskjellige TPDU deler sekvensnr.
+	  Før transportentiteten kan sende, må den sjekke klokka og sikre seg at den ikke er i 'the forbidden region'.
+	  Max-data-rate: 1 TPDU/clock tick. => clock tick er kort (typ mikrosek)
+	 Denne løsn kan bare bli brukt etter forbindelse er opprettet. Her kommer Three-way-handshake inn.
+
+	Three-way-handshake (Tomlinson, 1975)
+	 A sender CONREQ(seq=x). B svarer med ACK(seq=y, ACK=x). A bekrefter med DATA(seq=x, ACK=y).
+	 Krever _ikke_ at begge sider har samme sekvensnr. Kan derfor brukes med andre sync-metoder enn global-klokke-metoden over.
+	 Sekvensnr blir bare brukt om igjen hvis verten er sikker på at alle TDPU med dette nr ikke eksisterer lenger.
+	 Ved å sende med eget sekvensnr og ACK på den andres sekvensnr unngår man at forsinkede duplikater blir et problem.
+
+* Connection release
+	Mindre komplisert enn tilkobling.
+	asymmetrisk - enten klient eller server utfører DISCONNECT, og når DISCONNECT REQ-TPDU ankommer den andre brytes tilkoblingen. uavhengig om det er mer å sende.
+	symmetrisk - hver retning kobles ned uavhengig av den andre siden. DISCONNECT betyr: ikke mer å sende, men kan motta. Når begge har utført DISCONNECT brytes tilkoblingen.
+	
+	asymmetrisk nedkobling kan føre til tap av data hvis mottaker utfører DISCONNECT mens det er data underveis. Da vil all data som ankommer etterpå gå tapt. "Unreleased connection problem"
+	ved symmetrisk nedkobling har ikke dette problemet, men følgende problem i stedet:
+	
+	Two-army-problem:
+	 Komm.mediet er upålitelig, og det er ingen sikkerhet for at beskjeder kommer fram.
+	 Ingen av sidene vil ta en avgjørelse før den er sikker på at den andre siden har mottatt beskjeden.
+	 Hver side vet i tillegg at den andre siden ikke vil ta en avgjørelse før den har fått sin bekreftelse, og tar derfor heller ingen avgjørelse før den andre siden har fått den.
+	 Under disse forutsetningene finnes det ingen løsning.
+
+	Release using three-way-handshake
+	 ikke ufeilbarlig, men tilstrekkelig
+	 worst-case: halvåpen tilkobling. hvis alle DISC REQ feiler vil sender gi opp og koble fra.
+		     reciever kan allikevel stenges senere hvis følgende regel brukes: ingen TPDU etter X ant. sek, så DISC.
+			NB: hvis denne regelen brukes må keep-alive-TDPU'er sendes for å holde tilkoblingen oppe når det er lite kommunikasjon.
+			    mistes for mange av disse, vil en part likevel koble ned.
+
+* Error control
+	Feilkontroll er ikke et krav i dette laget, bare en mulighet.
+
+* Flow control
+	Flytkontroll er mottakerens måte å begrense datastrømmen fra sender. Flytkontroll er relatert til envher komm.situasjon.
+
+	Dynamic Sliding Window:
+	 buffers are decoupled from ACKs!
+	 buffer status is also piggybacked.
+	 the recievers buffer is not fixed.
+	 initially the sender request a certain size of buffer, and the reciever gives what it has.
+	 during transmission the reciever can update its buffer allocation for this sender
+	 this buffer aloc info is piggybacked back to sender.
+	 reciever should periodically send control TDPUs with ACK and buffer status on each connection, to avoid deadlock.
+
+	Rate-based flow control
+	 When buffer space no longer is an issue.
+	 The flow is regulated by the subnets capacity (TDPUs/sek).
+	 Sender tests the subnet capacity periodically by shortly sending a lot if info, and then calculating how many ACK/sek is returned.
+	 Adjusts the sending window dynamically to fit.
+	 Similar scheme used by the Internet.
+	
+	credit message - different from normal sliding window. to avoid having to provide and manage buffer within the transport entity. receiver sends credit msgs to sender. sender sends if it has enough credits.
+	
+
+* Buffering
+	Bufferhåndtering er en del av Transport-tjenesten og Transport-protokollen.
+	Forskjell fra data link layer:
+	 En router har relativt få linjer, mens en vert kan ha mange, og derfor er datalinklagets bufferstrategi upraktisk i transportlaget.
+	
+	Bufferorganisering:
+		Chained fixed-size buffers - if most TPDUs are nearly the same size.
+		Chained variable-sized buffers - better memory utilization, more complicated.
+		One lagr circular buffer per connection - good use of memory if connections are heavily loaded, bad if some are not.
+	 low-bandwidth, bursty traffic (interactive terminal) - best at sender buffrer.
+	 file transfer og annen smooth high-bandwidth traffic - best at reciever buffrer.
+	Sender kan requeste buffer-space hos reciever. Recieveren kan si ifra om buffersituasjonen sin.
+
+
+* Multiplexing
+	Upward multiplexing - flere transportforbindelser via en nettverksforbindelse. finne ut hvilken prosess en inkommende TPDU hører til. 
+	Downward multiplexing/Splitting - en transportforbindelse via flere nettverksforbindelser. trenger mer båndbredde enn en krets takler => åpner flere og fordeler trafikken. Eks. ISDN (to linjer, dobbel hastighet).
+
+* UDP - User Datagram Protocol
+	forbindelsesløs, ingen flytkontroll, feilkontroll eller resending.
+	TPDU kalles her 'UDP segment'. TSAP adressen kalles her 'UDP port'. 8 byte header.
+	UDP blir mer og mer brukt. Enkel å implementere, bruker mindre verts- og nettverksressurser enn TCP (f.eks til DNS).
+	 Også fordi mange applikasjoner tolerer litt feil, men ikke for mye forsinkelser (f.eks realtime audio/video).
+	 Portene til klient og server pluss IP er nok til tilleggstjenester som f.eks RTP.
+	
+	RPC (Remote Procedure Call) - ofte implementert med UDP men også mulig med TCP.
+	 client stub - får applikasjonens kall til server til å virke lokal. applikasjonene gjør bare vanlige prosedyrekall.
+	 marshalling - når client stub pakker parametrene til en beskjed og gjør et systemkall for å sende den.
+	 RPC har problemer med å bruke pekere som parametre osv.
+	
+* TCP
+	Tilbyr:
+	 forbindelsesorientert (oppretter/bryter ned forbindelser)
+	 pålitelig (ACKs, flytkontroll)
+	 feilfri (resend)
+	 ende-til-ende (inget komm. subnet involvert)
+	 punkt-til-punkt (bare mellom to maskiner)
+	 full duplex (trafikk i begge retninger på samme tid)
+	 byte stream (byte-nummerering og strøm-brytning)
+
+	TPDU kalt TCP segment. TSAP adresse kalt TCP port.
+
+	Noen TCP-porter:
+	 21 - FTP
+	 25- SMTP (e-mail)
+	 80 - HTTP
+	 110 - POP3 (remote e-mail access)
+
+	Byte stream
+		Beskjedgrenser ikke opprettholdt. selv ikke ved bruk av IP pga. IP-playloadens lengdebegrensning, eller nettverkets MTU-grense eller treg datagenerering.
+		Ofte nødvendig å bryte byte-strømmen => trenger byte-nummerering og omordning
+
+	Important Elements of TCP:
+	 numbering - real clock based. bruker tomlinsons metode med klokke og forbidden region. 
+	 connection establishment - 3-way-handshake
+	 connection release - symmetric
+	 transmission and ACK - piggybacking
+	 flow control - dynamic (or variable sized) sliding window
+	 error control - go-back-n and selective repeat
+	 
+	* TCP FSM - Finite State Machine
+		Fig.6-21 i Tannenbaum. Eksempelprotokollen som matrise.
+		Hver celle har 3 mulige felter: forutsatt hendelse (P), reaksjon (A) og ny tilstand (f.eks Idle).
+		Notasjonen er <hendelse>: <reaksjon>/<ny tilstand>
+		Beskriver mulige reaskjoner ut ifra hendelser i bestemte tilstander.
+
+		Fig.6-22 i Tannenbaum. Eksempelprotokollen som graf.
+		Foil 62 i Lecture 5 er bedre, bruk den.
+		Se også foil 63 og 64.
+	
+		Connection Management Modeling
+		Fig.6-33 Tannenbaum.
+		
+-------
+Network
+-------
+
+packet vs. datagram:
+	packet - any message formatted as a packet
+	datagram - packets not transmitted reliably (if network can not deliver it, no error message is transmitted back to sender. damaged packets can be discarded without notifying sender)
+
+* Oppgave: Skaffe pakker fra kilde til destinasjon.
+	"best-efforts service to transport datagrams with no regard to network topology"
+
+* Design:
+	tjenestene nettverkslaget tilbyr er uavhengig av underliggende nettverksteknologier
+	transportlaget trenger ikke vite antallet, typene eller topologien til de underliggende subnettverkene
+	nettverksadresser er globale og uniforme over forskjellige LAN/WANS
+
+
+* Funksjoner:
+	- Adressering - Konverterer logiske IP-adresser til fysiske adresser. globale adresser som krysser forskjellige nettverksteknologier.
+	- Ruting og videresending - finne ruten fra kilde til dest.
+	- Fragmentering og gjenoppbygging - underliggende nettverk har forskjellige egenskaper. f.eks MTU (Maximum Transfer Unit)
+	- Sammenkobling av nettverk - selv om teknologien er forskjellig
+
+	Adressering:
+		To måter:
+			1 Koder fysiske adressen i 'host' delen av IP adressen.
+			2 Tabellbasert. Hver node har en tabell over IPvsEthernet-mappingen.
+		Alle noder har minst en adresse.
+		Byte-streng som identifiserer noden, vanligvis unik.
+			unicast - spesifikk for en node
+			multicast - subsett av nettverksnodene
+			broadcast - alle nodene
+		Flat vs. Hierarkisk
+			Ethernet vs IP
+
+	Ruting og videresending
+		Routing - prosess som bygger og håndterer forwarding-tabellen
+			Rutingprotokoller må kjøre mellom switcher for å få en dynamisk oversikt av nettverket
+		Forwarding - flytte pakker fra input til output port ved å bruke forwarding-tabellen.
+			output-port avhenger av dest. adresse
+			hardware-based switching => high performance
+		
+		Ruting i flere hierarkier
+			Oversikt over alle noder umulig.
+			Intra-domain-routing - innenfor et frittstående/uavhengig nettverk
+			Inter-domain-routing - mellom nettverk
+
+	Fragmentering - (krever sammensetting på andre siden)
+		Et nettverk har en MTU pga.:
+			hardware
+			OS (buffer)
+			protokoller (lengde-felt)
+			nettverksstandard
+			redusere gjentatte overføringer som følge av feil
+			en pakke burde ikke okkupere nettverkstilgangen for lenge.
+		Fragmenter må være nummerert.
+			To sekvensnr: pakke + fragment
+			Fragment byte offset within packet length
+		Transparent fragmentering - pakke fragmenteres og sammensettes mellom hvert par av gatewayer
+			alle fragmenter/pakker via samme utgående gateway
+			gateway må vite når den har fått alle fragmentene
+			må ha ekstra overhead for fragmentering/sammensetting i hver node
+		Ikke-transparent fragmentering - pakker fragmenteres hos sender og settes bare sammen hos endelig mottaker
+			alle fragmenter transportert som de er uavh. pakker
+			åpner for mange utgående gatewayer og/eller forskjellige pakkeruter
+		
+	Sammenkobling av nettverk
+		når det finnes flere nettverk og nettverkene er av forskjellig type
+		Heterogenitet - utfordringen er å tilby en brukbar og forutsigbar ende-til-ende tjeneste over de varierende heterogene nettverkene
+		
+		Skalerbarhet
+			størrelsen på nettverket
+			antallet brukere
+			ruting og adressering
+
+		Bridge - LAN segment interconnect
+			data-link-layer connection
+			accept and forward (promiscuous)
+			forwards all broadcast and multicast traffic
+
+		Router - subnetwork interconnect
+			network-layer connection
+			interconnects different network technologies
+			forwards packets, runs routing protocols to update forwarding table
+		
+		Tunneling interconnects via a third network
+			interconnection of two similar networks by a different middle-network
+			encapsulate network packets
+			decapsulate network packets
+
+* Strategies for switching. Store-and-forward switching principles.
+	
+	Message switching
+		
+	Cell switching	
+
+
+	Packet-switching
+		Sends/recieves messages/packets
+		Statistical multiplexing
+		Datagram: Connectionless
+			No set-up  and establishment of state information befor data can be sent.
+			Routes packets.
+		Virtual Circuit: Connection-oriented
+			Set-up results in state information in network nodes before data can be sent.
+			Routes connections.
+		
+		Connection-oriented Virtual Circuit switching
+			packets follow the same path (analog to telephone call)
+			each node has a VC table that is uses for forwarding
+			has to wait a whole RTT (round trip time delay) before the first data packet can be sent (to set up the connection)
+			the 'request' packet for the conn. estab. has complete dest. adr., each data packet only has small idenficator (less control info per packet)
+			if a node or link fails, the conn. is broken, a new has to be estab.
+			explicit conn. estab. gives the possibility to reserve resources
+			Example network: ATM
+			
+			Connected Virtual Circuits
+				internetworking using concatenated virtual circuits
+				all networks on the concatenation must support virtual circuits
+				data packets flow along the same concatenation of virtual circuits.
+				common in transport layer
+		
+
+		Connectionless packet switching (based on datagram)
+			No RTT delay for conn. estab., data can be sent as soon as sender is ready
+			The sender has no knowledge of if the network can deliver the packet, or if the reciever is alive
+			Error situations in links and nodes can be handled because packets are considered independent
+			Overhead per packet is higher than for connection oriented networks - complete dest. adr. is needed.
+			Example network: IP
+
+
+			Connectionless internetworking
+				a connectionless internet (example: IP based Internet)
+				packets may reach dest. through different routes
+				 this gives higher bandwidth than the concatenated virtual circuit model
+				each packet forwarded independently
+				each node has a table for forwarding
+	
+
+		    Virtual circuit 			vs. 		    Datagram
+
+		RTT delay. buffer aloc. at conn.time			send as soon as ready
+		Router failure=>whole VC down				robust agains network failure.
+		guarantees packets in seq.				packets may arrive out of order
+		delayed duplicates avoided				congestion avoidance
+		shorter headers						longer headers
+		underlying network must support VC			no req. on underlying network
+		each packet VC number					each packet full adr.
+		router table space per conn.				routers do not hold state info per conn.
+		
+		
+* Routing Algorithms
+	to build and manage forwarding tables
+	deal with the shortest path problem distributed and dynamic between the nodes
+	goal is to discover and use the sink trees for all routers
+	desirable traits of a routing algorithm: correctness, simplicity, robustness, stability, fairness and optimality.
+
+	Non-adaptive algorithms / static routing
+		computation in advance, off-line, then downloaded to routers on network boot
+		no relation to traffic and topology
+		routes loaded/configured into router
+
+	Adaptive algorithms / dynamic routing
+		route decisions includes changes in topology and possibly traffic
+		routing information exchanged between nodes in the network
+			between all neighbor nodes
+			between all nodes
+
+	The optimality principle - shortest path routing
+	Sink tree - shortest path from a node to every other node (tree = contains no loop)
+	Shortest path can be measured in hops, geodistance, mean queue delay and mean transmission delay.
+
+	Intra-domain-routing
+		Distance Vector routing - each node has info on best known distances and exchanges this with neighbor nodes (by Bellman-Ford or Ford-Fulkerson algorithm).
+			used in ARPANET
+			later discarded because of the Count-to-infinity problem, and slow convergence.
+			
+			How:
+			 each router has a routing table containing one entry for each router in the subnet
+			  entry includes: preferred outgoing line and est. dist. to that router.
+			 it knows the dist. to each imminent neighbor
+			 it regulary (every T msec) exchanges the list with them.
+			 then updates its own list based on the lists recieved
+			
+		Link State routing - each node sends all nodes info about neighbor nodes. each node can then compute its sink tree.
+			commonly used nowadays
+			uses flooding of link state packets (discover topology), then computing of shortest path (Dijkstra)
+ 			LS-packets have seq and age to discard duplicates and limit lifetime.
+
+* About Routing Protocols
+	scalability defines suitability for large networks
+	standard vs. proprietary
+	network and resource overhead (control traffic, CPU, memory etc)
+	convergence (how fast does the router react to topology changes)
+	parameters related to choice of route based on specific criteria/link cost (ex. routing hops, bandwidth, delay, utilization etc.)
+	must avoid loops!
+
+* Hierarcial Routing
+	Scalability challenge: routing tables grow proportional to network size.
+	Solution: 
+	
+	Inter-domain routing. Fig. 5-15 Tannenbaum
+		routers divided into regions and other regions are condensed into a single router
+		disadvantage: increased path length in some cases
+		Optimal number of hierachy levels is ln N for a N router subnet. each router having e*ln N entries.
+		
+* Internet philosophy
+	Distributed network control
+	Best effort
+	Reliable end-to-end service by the Transport Layer. (end-to-end means no required intermediate interpretation)
+		simple network: push the complecity to the end
+		state information in end systems (transport protocols)
+		support end-to-end sercives (UDP/TCP)
+	Connetionless switching with intelligence/state in end-systems
+
+
+* IP - data transfer protocol
+	globale adresser som krysser forskjellige nettverksteknologier
+	plays a key role in the internet
+	kjører i endesystemene og mellomliggende nettverksnoder
+	gjør det mulig å se på en samling av nettverk som et homogent internettverk
+	pakkelevering er basert på packets
+	kan kjøre over alt - ikke avhengig av underliggende nettverk
+
+	Funksjonalitet:
+		1 Adressering (resolution by ARP and translation by NAT)
+		2 Fragmentering og sammensetting
+		3 Multiplexing
+		4 Type of service (TOS)
+	
+	Header: most fields unchanged from source to dest.
+	Max IP-packet length is 65535 bytes	
+	Fragmentering: Ethernet MTU = 1500 byte, FDDI (fiber) MTU = 45000 byte. => big packets must be fragmented!
+	 Fragmentation at source (MTU discovery)
+	 Fragments are independent packets
+	 Reassemble at dest. host.
+
+	Classful IP-adressing
+	 no longer used
+	 32-bit format, classes A to D. E reserved for future use.
+	 point notation. 127.xx.yy.zz is loopback adress.
+	 Fig. 5-56 - special IP adresses
+	 three-bears-problem - class A (2 mill) too big and C (256) too small. B far too large, but used much many orgs. wont be confined to the small C.
+
+	Subnetworking (CIDR)
+	 one IP adress used in several physical subnetworks.
+	 gives additional hierarchial level
+	 subnet masks define the use of the address space
+	 subnetworks are only visible within an area
+	 ** learn how the subnet-IP routing is done! Tabenbaum pages 439-444.
+	
+	Adress space is too small! (especially if all mobiles also need a global unique adress)
+	 Lifetime extended by use of:
+		DHCP - Dynamic Host Configuration Protocol
+			Dynamically configures hosts with adress, subnet and default gateway.
+		CIDR - Classless InterDomain Routing - to better utilize the address space. allocate remaining IP-adresses in variable sized blocks, without regard to the classes. All routers must understand CIDR adressing.
+		Private intranets - private adresses must be manager in the public internet
+		NAT - Network Adress Translation - needed to communicate with machines outside the internal network
+
+	Public vs Private.
+		IP-adresses not globally unique anymore, because of private intranets and DHCP
+		To extend lifetime of IP-adress-space, some adresses are allowed for business internal private internets.
+		No coordination and application of private adresses
+		Public adresses must be applied for (RIPE for europe)
+	
+	IPv4 - 32 bit
+		technical problems:
+			limited number and type of adresses
+			inefficient utilization of adress space (bad planning)
+			does not manage growth - address space full?
+			adress structure gives large routing tables - bad adress hierarchy, supernetworking
+			lacking support for new services - mobility, multicast
+			no Qos guarantee
+			missing security mechanisms
+
+	IPv6 - 128 bit. next generation internet
+		optimization and simplifications
+		mobility and security are integrated parts
+		IPSEC is a default
+		
+		still needs to:
+			manage the future lack of addresss
+			better utilize the network
+
+	IPv6 is a catalyst to expand the functionality in IPv4 by:
+		- NAT (see above) 
+		- DHCP - dynamical config of IP-addresses
+		- RSVP combined with IP-switching (Resource reSerVation Protocol) (gives level of QoS)
+		- CIDR (see above)
+		- IPSEC IP security - encryption/decryption of data packets
+	
+
+
+* Internet Control Protocols
+	ICMP - Internet Control Message Protocol - test the internet and reports unexpected events
+		used when something goes wrong
+		parameter problem - invalid header field
+		source quench - choke packet
+		echo - used to test. are you alive?
+		redirect - tells source there is a better route to dest
+		destination unreachable - link, protocol, port or host
+		TTL (time to live) elapsed
+		checksum failed
+		reassembly failed
+	ARP - Address Resolution Protocol - protocol for sending and recieving IP-adress queries
+		used to find physical adress of the next hop
+		destination host answers with its physical adress
+		optimization:
+			1 Cache results of queries, and use cache next time before evt. broadcast
+			2 Boot broadcast of IP
+	RARP - Reverse ARP - finds IP to ethernet address by broadcasting to local network. f.ex to assign IP adress to diskless workstations.
+	BOOTP - invented to circumvent a RARP server on each network. BOOTP uses UDP which is forwarded over routers. Requires manual config of IP-Ethernet tables
+	DHCP - extension to BOOTP. allows both manual AND automatic adress assignment. DHCP relay agent needed on each LAN to forward all IP-requests.
+		IP-leasing - ensures reuse of IP adresses when hosts leave the network
+
+
+---------
+Data Link
+---------
+
+
+* Håndterer:
+	1 Frames. Start og slutt på beskjeder (frames).
+	2 Overføringsfeil (CRC til hver frame + ACK/NACK). Oppdager og korrigerer også.
+	3 Dataflyt (slik at raske sendere ikke kveler sene mottakere).
+
+* Tjenester (bekreftelse ikke et krav i dette laget, kun optimalisering)
+	- ubekreftet tilkoblingsløs. nyttig i real-time komm. brukt av fleste LAN. overlater feilhåndtering til øvre lag.
+	- bekreftet tilkoblinsløs. nyttig ved trådløse systemer (upålitelige)
+	- bekreftet tilkobling-orientert. pålitelig bitstrøm. dyrest. tilkobling må settes opp og brytes ned.
+
+* Deler "raw bit stream" fra physical opp i frames (framing). Fire metoder:
+	1. Character count.
+		Frame length indicated in header
+		- Problem: Count can be garbled by transmission error. Must retransmit entire transmission.
+		- Consequence: Rarely used (alone).
+	2. Flag bytes (start and stop character) with byte stuffing.
+		- Problem: Flag byte bit pattern may occur in data.
+		- Solution: insert ESC bytes with byte/character stuffing
+		- Disadvantage: Must use 8-bit characters. UNICODE uses 16-bit.
+	3. Starting and ending flags , with bit stuffing.
+		- Allows arbitrary bit length characters.
+		- 5 consecutive 1s in data, insert(sender)/delete(reciever) 0.
+		- Consequence: flag byte(01111110) contains 6 consecutive 1s and occurs only at frame boundaries.
+	4. Physical layer coding violations.
+		- Prereq: Encoding on physical medium contains som redundancy.
+  Mange data link protokoller bruker character count + en av de andre for sikkerhet.
+
+* Feilkontroll
+	Problem: Må levere alle pakkene til nettverkslaget i korrekt rekkefølge.
+	Løsning: Sending av ACK og NACK, timere, retransmissions og sekvensnummer.
+	Konsekvens: Får de pakkene en trenger i riktig rekkefølge uten duplikater.
+
+* Flytkontroll. For å hindre kveling av en mottaker.
+	1 Feedback-based flow control - mottakeren regulerer flyten
+	2 Rate-based flow control - protokollen determinerer flyten
+	(nr 2 aldri brukt i dette laget)
+
+* Feil. Oppdaging og korrigering. To strategier:
+	- Error-Correcting Codes - mye overflødig data -> mottaker finner ut orig. data. Bra på upålitelige medium (trådløst).
+	- Error-Detecting Codes - litt overflødig data -> mottaker registrerer feil, ber om resend. Billig. Bra på pålitelige medium (fiber).
+
+	* Hamming codes (detect and correct single bit errors)
+		Hamming-distansen er antallet 1-bits etter man har utført XOR på to kodeord.
+		I et sett med kodeord er H-dist til settet, H-dist til de to kodeordene med minst H-dist.
+		Ugyldig kodeord indikerer overføringsfeil.
+		Med kodeord med H-dist '2d+1' kan man rette 'd' enkeltfeil.
+		Med kodeord med H-dist 'd+1' kan man finne 'd' enkeltfeil.
+		For at en kode skal kunne korrigere 1-bit-feil må antallet check bits minumin være: Et kodeord n = m + r, der m=data og r=check bits, må ha r som oppfyller: (m+1+r) <= 2^r
+		Hamming-koder bruker paritetsbit til å oppdage feilene, for så å rette dem.
+		 Det behøves ett paritetbit på alle plasser i kodeordet (fra venstre) som er en potens av 2.
+		Det finnes et triks som gjør at Hamming-koder kan korrigere burst-errors, noe som noen ganger er tilstrekkelig, men CRC benyttes oftere.
+	  Paritetsbit:
+		even parity - paritetsbit lagt til slik at antallet 1-bits i kodeordet er partall
+		odd parity - paritetsbit lagt til slik at antallet 1-bits i kodeordet er odde
+		long error burst will be discovered with probability 0.5
+
+	* Error-Detection (of burst errors):
+		Slipper å korrigere i tillegg. Mindre overhead => billigere.
+		CRC benyttes. Sender og mottager må være enige om generator-polynomet G(x).
+		Frames må være lengre enn G(x).
+		Mottaker deler Frame+CRC på G(x), rest indikerer feil.
+
+* Fremgangsmåte:
+	Frame = header + pakke + trailer
+	  header er destinasjon og kontrollinfo
+	  trailer er CRC
+	Data link laget legger til headers og trailers ved sending, og fjerner dem ved mottak.
+
+* Data link feil- og flytkontroll protokoller
+	Elementære - er simplex, tar bare for seg sending av pakker i en retning.
+		unrestricted - utopi. ingen ACK. evig buffer. aldri brukt.
+		stop-and-wait - sender venter på ACK etter hver frame før den går videre. hvis en frame eller ACK går tapt => deadlock.
+			stop-and-wait ARQ - samme som over, men med timer. hvis en ACK går tapt vil mottaker sitte med to identiske frames uten å vite om det er den første som ble sendt om igjen eller en ny frame med identisk data => deadlock.
+		PAR/ARQ - bruker timer og sekvensnummer for å unngå deadlock.
+	Sliding window - full-duplex. en simplex i hver retning er vanlig. senders vindu består av pakker sent men ikke ACKa. recievers vindu består av pakker tillatt å sendes til laget over.
+			piggybacking - forsinker ACK (fast ant. millisek) slik at ACK-headeren i en evt. utgående frame kan brukes. for å redusere overhead.
+			pipelining - frames settes i kø, og sendes i bolker. senders vindu (kø) er større enn mottakers, spesielt på trege medium, for å få best utnyttelse av båndbredden.
+		One-bit sliding window - bruker PAR. premature timeout problem => 2 eller flere duplikater av hver frame.
+		Go-Back-N - reciever slutter å sende ACK hvis den får en skadet frame. Sender sender så hele bolken (n frames) på ny etter timeren går ut. På et upålitelig medium vil dette sløse mye båndbredde.
+		Selective repeat - reciever buffrer alle ok frames etter en skadet. reciever sender evt. en NAK med seq. nr for å speed opp resendinga av en skadet frame. Sender resender når den får NAK, eller når den eldste ikke-ACKa framens timer går ut. Krever mye minne.
+			NB: maksimum vindusstørrelse må være høyst halvparten av ant. sekvensnr, hvis ikke vil protokollen feile (i patologiske scenarier).
+
+* HDLC - High Level Data Link Control
+	from IBMs SDLC to ANSIs ADCCP to ISOs HDLC!
+	bit-oriented synchronous data link layer protocol.
+
+* PPP - data link laget på internet
+	Brukes mellom routere og mellom hjemmebrukere og ISP.
+	Håndterer:
+		error detection
+		forhandling av IP ved tilkobling
+		tillater autentisering
+	Tilbyr tre tjenester:
+		1 framingmetode som utvetydig definerer begynnelse og slutt på en frame + feildeteksjon
+		2 LCP - kan åpne linjer, teste de, forhandle alternativer, og avslutte elegant når de ikke lenger behøves. Støtter synkrone/asynkrone kretser + byte/bit-orientert enkoding. 
+		3 NCP - en måte å forhandle nettverkslagalternativer uavhengig av protokollene i nettverkslaget. Den valgte metoden er å ha forskjellig NCP for hvert nettverkslag støttet.
+	Når en PC kobler til en ISP må noen ting ordnes:
+	 PCen vil typisk kjøre TCP/IP-protokollen og vil dermed ha en IP.
+	 NCPen for IP tildeler den det. Nå kan den sende og motta IP-pakker.
+	 Når brukeren er ferdig bryter NCP ned tilkoblingen.
+
+	PPPs frame-format ligner veldig på HDLC sitt. If it works, dont fix it.
+	 PPP er character-orientert mens HDLC er bit-orientert.
+	 PPP bruker byte-stuffing på dial-up modemlinjer.
+	 PPP-frames kan i tillegg bli sent via SONET eller bit-orientert HDLC (for ruter-ruter tilkoblinger).
+
+* LLC - Logical Link Control
+	in point to point networks: Data link layer = LLC.
+	hides differences between between various kinds of 802 networks by providing a single format and interface to the network layer
+	deals with:
+		ACK
+		NAK
+		timeout
+		sequence numbering
+		retransmission
+		error detect/correct
+		multiplexing
+		flow control
+
+* MAC sublayer - Medium Access Control
+	
+	CSMA - Carrier Sense Multiple Access
+		1-persistent - senser kanalen, hvis ledig send. hvis kollisjon under sending vent random time.
+		non-persistent - samme som 1-persistent, men venter random time også hvis kanalen ikke er ledig før den prøver igjen. Less greedy each attempt.
+		 begge kan være basert på pure slotted ALOHA
+		p-persistent - tid delt inn i slots. sansynlighet p for å sende på en ledig kanal. hvis kollisjon, vent random ant. slots.
+
+	CSMA/CD - with Collision Detection
+		tid delt inn i slots
+			Algoritmen:
+			 hvis ledig kanal, send!
+			 senser kanal for kollisjon under sending
+			 hvis kollisjon, bruk binary exponential backoff retry algorithm
+			 hvis ikke, fullfør overføring, vent 2T og gå tilbake til start.
+		CD kan ta 2T tid!
+
+	binary exponential backoff
+		sikrer lav delay ved få kollisjoner, og rimelig kollisjonsløsing ved mange kollisjoner
+		tiden er delt inn i slots på 2T (51.2 usec på Ethernet)
+		etter i kollisjoner, vent et ant slots mellom 0 og 2^i-1 (maks 1023) før resend (eks. 10 kollisjoner, trekk ant slots å vente fra 0-1023)
+		etter 16 kollisjoner, gi opp og rapporter til øvre lag
+
+	Manchester encoding - brukt av Ethernet
+		metode for å utvetydig bestemme start, midt, og slutt på hver bit uten bruk av ekstern klokke.
+		0 (lav-høy), 1 (høy-lav)
+		krever dobbelt så mye båndbredde som vanlig binærenkoding!
+		 men ingen bruker binærenkoding pga det fører til tvetydigheter. (ingen forskjell på idle og 0)
+		
+	Differential Manchester encoding - en variasjon brukt av 802.5 token ring
+		1-bit er indikert ved ingen overføring ved starten av et intervall, 0 bit motsatt. i begge tilfeller er det en i midten
+		krever mer komplekst utstyr
+		gir bedre støyimmunitet
+
+	Ethernet
+		preamble of 8 bytes in each frame to allow receivers clock to sync with senders.
+
+	Gigabit Ethernet
+		punkt-til-punkt
+		bruker ikke manchester-enkodingm, men 8B/10B
+
+		switch
+			full duplex - collisions impossible
+			frames kan bli sendt når som helst, bruker ikke CSMA/CD
+			max length bestemt av signalstyrke
+		hub
+			kobler alle linjene sammen - fungerer som en multidrop cable
+			half duplex - collisions possible
+			CSMA/CD blir brukt til feildeteksjon
+			max length bestemt av 2T (worst case time for a sender to discover collision)
+			utvidet radius fra 25 til 200m ved:
+				carrier extension - padder frames til 512 bytes slik at noise bursts kan komme tilbake til sender før den er ferdig.
+				frame bursting - samler frames til en forsending
+
+
+	Bridges and switches
+		MAC layer encapsulates and decapsulates 802.x headers in host, dest, and here.
+
+
+* 802.11 Wireless LAN
+	
+	Services:
+		- Association
+		- Disassociation
+		- Reassociation
+		- Distribution
+		- Integration
+	Intra-cell Services:
+		- Authentication
+		- Deauthentication
+		- Privacy
+		- Data delivery
+
+	MACA - Multiple Access with Collision Avoidance
+		uses RTS and CTS frames to avoid the hidden-station-problem and the exposed station problem.
+		due to these problems CSMA/CD not used.
+		Collisions can still occur. RTS frames sent at the same time.
+
+	MACAW - MACA for Wireless
+		fine tuned MACAW. improved performance.
+		ACK frame introduced after each successful data frame.
+		CSMA added to keep stations from sending RTS-frames at the same time.
+
+	MAC sublayer protocols:
+	DCF - Distributed Coordination Function
+		no central control (similar to Ethernet)
+		uses CSMA/CA
+		required  support
+	PCF - Point Coordination Function
+		support optional
+		base station controls all activity in its cell
+		No collisions ever!
+	They can coexist within a cell! (by defining interframe time interval)
+
+	CSMA/CA - CSMA with Collision Avoidance
+		both physical and virtual channel sensing
+		fragmentation to increase througput
+		two modes of operation:
+			1 no sense while sending frame. collision => binary exponential backoff
+			2 based on MACAW. uses virtual channel sensing (RTS/CTS-frames)
+			
+	Fragments with own CRC if noisy channel.
+	Base station can tell mobile station to go to sleep.
+
+
+
+--------
+Physical
+--------
+
+* Generelt:
+	Håndterer "raw bit streams". Definerer de mekaniske-, elektriske- og timing-interfacene til nettverket.
+
+	spectrum - set of frequency components in the signal
+
+	bandwidth - the range of frequencies transmitted without being strongly attenuated. physical property of the medium. measured in Hz.
+		absolute bandwidth is the width of the spectrum of the signal
+		effective bandwidth is the part of the spectrum where the energy of the signal is concentrated
+		the broader the bandwidth the faster data can be sent.
+	bit rate - amount of information sent over a channel. the bits per second. symbols/sec * bits/symbol. one link layer bit is encoded on physical signal elements (symbols)
+	baud/symbol rate - number of samples per second. during each baud one symbol is sent. an N-baud line transmits n symbols/sec.
+
+	a symbol can be encoded in less than one bit, exactly one bit or more than one bit (modems focus on this one).
+	modulation - the process of sending a signal by changing the characteristics of a carrier frequency.
+			a source signal(analog/digital) is encoded on an analog signal.
+	
+	attenuation - loss of energy as signal propagates outward
+
+	PC internal clock speed has increased 40 times in two decased (4.77MHz in 1981 to 2Ghz 20 years later)
+	Transmission datarate has increased 125 times in three decades! (56Kbps in 1970 to 1Gbps in todays optical transmission systems)
+
+	FDM - Frequency Division Multiplexing - spectrum into channels. split the band into multiple data carriers
+	TDM - Time Division Multiplexing - channels into time slots. f.ex to allow different users to use same frequencies, only at different times.
+
+	multipath fading - some waves are refracted off low-lying atmospheric layers and are slightly delayed. these then may arrive out of phase with original waves, and cancel the signal. often a serious problem!
+
+	circuit/connection switching - a physical path from source to dest (telephone)
+	message switching - routers store-and-forward messages. each block received entirely, inspected for errors, and retransmitted. no limit on block size. bad throughput -> not used nowadays.
+	packet switching - tight upper limit on block size. packets can be buffered in main memory. first packet can be transmitted before second packet has fully arrived -> increased throughput.
+
+* Modem - mudulator/demodulator - digital source signals to/from analog. often based on amplitude and phase shift keying. modems with higher speeds use error correction by adding extra bits.
+* Codec - coder/decoder - analog source signals to/from digital. 8000 samples per second. enough to capture all info from 4kHz telephone channel.
+	uses:
+	 PCM - Pulse Code Modulation - digital representation of analog signal. regulary sampling.
+	 predictive encoding - use previous values to predict next value. encode difference between the actual signal and the predicted one. sender/reciever must use same algorithm. reduce size of numbers to be encoded => recuded nr of bits sent.
+	
+* Magnetic Media - time and cost effective for enormous amounts of data (hundreds of GB ++)
+* TP - (Unshielded) Twisted Pair - very common. several km without amplification.
+	Twisted to cancel out emitting waves.
+	Problems: attenuation, delay distortion and noise.
+* Coax - Coaxial Cable - modern cables have bandwidth close to 1 GHz
+* Fiber Optics - unidirectional ultra thin glass fiber
+	uses 0.83, 1.30 and 1.55 micron bands
+	data rate limit is at 50 Tbps! problem is endpoints.
+	LEDs and semiconductor lasers are used to do the signaling.
+	multimode fiber - many different rays at different angles. each ray has a different mode.
+			WDM - Wavelength Division Multiplexing - variation of FDM. makes several different colors in the same fiber possible.
+			DWDM - Dense WDM - when the number of channels is very large and wavelengths spaced very close together
+	single-mode fibers today can transfer data at 50Gbps for 100km without amplification. more expensive. ultra thin fiber.
+	passive star - each outbound fiber sees the light from all inbound fibers. used for broadcasting.
+* PSTN - Public Switched Telephone Network
+	three major components:
+		1 local loops (analog tp going into houses and buildings)
+		2 trunks (digital fiber optics connecting switching offices)
+		3 switching offices (moves calls from one trunk to another)
+	structures:
+		- fully interconnected
+		- centralized switch
+		- Two-level hierarchy
+* WAN - Wide Area Network
+	Telephone system is a key element. Local loops, trunks and switches.
+* Wireless
+	Radio - omnidirectional. through buildings. high frequencies absorbed by rain. VLF, LF and MF band radio waves follow curvation of the earth. HF and VHF bounce off ionosphere.
+	Microwave transmission - earth based. directional. applied in fixed networks
+	Satellite - directional by GEO and MEO-satellites. omnidirectional by LEO-satellites.
+* Sattelite
+	GEO - Geostationary
+	MEO - Medium Earth Orbit - ex. the 24 GPS satellites
+	LEO - Low Earth Orbit - short round trip delay. less powerconsuming on ground stations.
+		Iridium, Globalstar aimed at voice.  Teledisc at internet.
+			Iridium uses satellite to satellite (complex)
+			Globalstar uses bent pipe design and terrestrial network
+	VSAT - Very Small Aperture Terminal - tiny terminals (1m antennas). used by direct broadcast television. Communicates via ground hub station (traffic relay).
+* 802.11 Wireless LAN
+	can operate with or without a base station
+	* FHSS - Frequency Hopping Spread Spectrum
+		transmitter hops from freq. to freq. hundreds of times per second.
+		security
+		resistance to multipath fading
+		insensitive to radio interference
+		low bandwith - main disadvantage
+
+	* DSSS - Direct Sequence Spread Spectrum
+		spreads the signal over a wide freq. band
+		similarities to CDMA
+		uses phase shift modulation
+		restricted to 1 and 2 Mbps
+
+	* OFDM (used by 802.11a) - up to 54 Mbps
+		splits signal into many small narrow bands
+		good immunity against narrowband interference
+		uses 5-GHz band
+
+	* HR-DSSS 802.11b - up to 11Mbps
+		uses 2.4-GHz band
+	
+	* 802.11g - enhanced version of 802.11b. uses OFDM modulation of 802.11a but the 2.4-GHz band with 802.11b
+* 802.16 Wireless WAN
+	10-66 GHz band
+	connection-oriented - unique with connections in the MAC sublayer
+	stationary use
+	large cells, several kilometers
+	many users per cell
+	intended for high quality multimedia (eg. TV)
+	disturbed by rain and snow
+	needs strong error correction - hamming codes in physical layer, CRC in higher
+	modulation
+		QAM-64 for close subscribers
+		QAM-16 for medium range
+		QPSK for distant
+	multiplexing: OFDM
+	duplex-metoder: uses FDD or TDD to control upstream/downstream
+	services:
+		1 constant bit rate
+		2 real-time VBR
+		3 non-real-time VBR
+		4 best-efforts service
+ 
+* Wireless MAN - wireless local loops
+	pro: well established technology, ready equipment
+	con: modest total bandwidth which must be shared by many users over large geographical area
+		MMDA - Multichannel Multipoint Distribution Service - 198 MHz wide. low bandwidth.
+		LMDS - Local Multipoint Distribution Service - 1.3 GHz wide.
+
+
+* Modulation types and techniques
+	1 Binary signal
+	2 ASK - Amplitude Shift Keying
+	3 FSK - Frequency Shift Keying
+	4 PSK - Phase Shift Keying
+
+	TCM - Trellis Code Modulation - add bits for error correction
+		V.32 - 9600 bps. 4 data and 1 parity bit
+		V.32bis - 14 400 bps. 6 data and 1 parity bit.
+		V.34 - 28 800 bps. 12 bits/symbol.
+		V.34bis - 33,6 kbps.
+		Shannon limit for telephone system is 35 kbps. 56 kbps downstream modems possible when eliminating one local loop.
+
+
+	All advanced modems use a combo of moulation techniques to transmit multiple bits per baud.
+		full duplex is also standard in all modems by using FDD
+	Often multiple amplutides and multiple phase shifts are combined to transmit several bits/symbol.
+
+	QPSK - Quadrature Phase Shift Keying - 2 bits/symbol. 4 phases. the phases represent 01,11,00,10.
+	QAM-16 - Quadrature Amplitude Modulation - 4 bits/symbol. 4 phases, 4 amplitudes in each => 16 combinations.  4 bits ^ 2 possibilities = 16  differen combinatitons.
+	QAM-64 - 64 different combinations. 6 bits/symbol.
+
+		ln(combinatons)/ln(2) = bits/symbol
+
+* Shannon limit - noisy channels. determined by average length of local loop.
+	for telephone systems is about 35kbps. thats why many modems stop at 33.6kbps
+	S/N i dB = 10*log (S/N)/log (10)	-	Max Bit Rate = H*ln(1+S/N)/ln(2)
+	
+* Nyquist theorem - noisless channels
+	"et signal kan bli fullstendig representert med en samplingsfrekvenspå 2H, der H er max båndbredde."
+	MDR - Maximum Data/Bit Rate = 2H*(ln V)/(ln 2) bps (Nyquist theorem) (H=bandwidth, V=discrete levels)
+
+
+* ADSL - up to 50Mbps. Divides the local loop into many virtual channels, and modulating each one seperately.
+
+* Mobile
+	AMPS - Advanced Mobile Phone System. Cells, microcells (when cells are overloaded). Base stations connected to MTSO (mobile telephone switching office)
+		frequencies not reused in adjacent cells
+		smaller cells to add more users
+	D-AMPS - Digital AMPS. AMPS digital successor. Used nowadays.
+	GSM - Globile System for Mobile communication
+		DAMPS in USA, GSM elsewhere.
+		both use FDM! mobile transmits on one frequency, and recieves on a higher one.
+		GSM channels much wider than AMPS => higher data rate.
+		voice quality substantially better than D-AMPS
+		uses TDMA.
+		
+		EDGE - GSM with more bits per baud. different modulation and error correction.
+		GPRS - overlay packet network on top pf D-Amps or GSM. allows mobile IP packet sending.
+
+		terminal = mobiltelefon
+		
+		se GSM slides/tutorial for MSC/VLR, HLR, and handover procedures.
+
+	CDMA - Code Division Multiple Access
+		basis for 3G mobile systems and GPS an other sattelite systems. SprintPCS (mobile operator in the US) uses CDMA in 2G.
+		used in stead of FDM and TDM
+		"everyone in a room talking at once, but each pair with a different language"
+		chips - short time intervals
+		chip sequence - unique code assigned each station
+
+
+
+
+----------
+Multimedia 
+----------
+
+* Digital multimedia er feltet som omhandler datakontrollert integrasjon av tekst,
+  grafikk, statiske og bevegende bilder, animasjon, lyd og ethvert annet medium der
+  informasjonstypen kan bli representert, lagred, overført og prosessert digitalt.
+
+	
+	RTP - Realtime Transport Protocol
+		multiplexer flere realtime datastrømmer på en enslig strøm med UDP-pakker. mediastrømmen er sent som bolker med data puttet inni RTP-pakker
+		vanligvis implementert i APPLIKASJONSLAGET. aksesserer UDP gjennom en socket. blir direkte aksessert av multimedieapplikasjoner.
+		brukt til realtime multimedia transport over nettverket. EKS: internet radio, ip-telefoni, music-on-demand, vod, videokonferanser,
+		one-way streaming, unicast or multicast of audio and video in general
+		RTP-HEADERen inneholder sekvensnr og timestamp til å ordne og synkronisere pakker og datagram på forbindelsen.
+			I tillegg har den stream-identifier
+		No QoS guarantee.
+
+	RTCP - RTP Control Protocol
+		Used with RTP to monitor the QoS
+		No QoS guarantee.
+		Feedback info used to adapt senders data rate output (adaptive scaling of service profile and level)
+	
+	RTSP - Real-Time Streaming Protocol
+		Application level protocol for control over the delivery of data with real-time properties
+		Stream initizalition (unicast). VOD setup, VCR control functionality.	
+		ASCII text protocol
+		No QoS guarantee.
+		Media on-demand control, player-server interaction. Setup procedure.
+		Requests and responses similar to HTTP.
+		Not memoryless
+		HTTP-friendly - supports most HTTP features + new ones
+		RTP used for actual delivery of data (sound, video)
+		On top of UDP/IP or TCP/IP
+	 
+	QuickTime
+		browser plug-in, or stand-alone QTPlayer
+		uses RTP and RTSP
+		retrieves strems from QT streaming server
+		handles multimedia components like
+			video, sound, animation, graphics, text, music, 360-degree VR scenes
+			 stored in every major format
+		timecode tracks (hint tracks)
+	Other Streaming Media Systems	
+		RealPlayer
+		Sun Java Media Framework
+		Microsoft Streaming Media
+		MPEG-21 (coming)
+
+
+* Streaming media - transmit media in same speed as it shall be consumed
+	Analog: Radio, TV
+	Digital: Digital TV, Digital Radio (DAB, DRM)
+		satelite, terrestrial, cable
+		dedikerte kanaler!
+	Digital Streaming Media is in its very first phase.
+
+	Internet streaming media
+		wired and wireless LAN and WAN
+		packet switched (competition of resources)
+		uses RTP on top of UDP. RTP for timestamp and sync tools, UDP for efficient and low-latency oriented flow. Neither has QoS
+		
+		Special 1: Variable network delay
+			client uses buffer to balance the unpredictable delay
+			too small buffer might lead to packet starvation and playback will stop
+		
+		Special 2: Error resilience
+			media decoder must be able to continue decoding when there are missing data
+				must not crash
+				must conceal the errors in a best possible way
+				RFC3119 for audio - a more loss-tolerant RTP payload format for mp3 audio
+				for video different tools are available in different standards
+			because of real-time constraints lost data cannot be retransmitted
+
+		Needs compression!
+			Why?
+			- want to have as many channels on limited bandwidth
+			- uncompressed CD audio is ~ 1.4 Mbit/s
+			- uncompressed Video at ~ SDTV quality needs 200 Mbit/s
+			Do we need special hardware for decoding?
+				MPEG-1 @ <VHS quality - decoding on PC in 1995 (1.2 Mbit/s)
+				MPEG-2 @ DVD quality - decoding on PC in 2000 (6-8Mbit/s)
+				MPEG-4/H.264 @ DVD quality - decoding on PC in 2003 (1000kbit/s)
+
+			State of art compression
+				the lower the bit rate, the lower the quality.
+				bit rates given are average bit rates. a multimedia codec outputs variable bit rate.
+				- Audio near-CD quality
+					AACplus (MPEG-4 AAC HE) @ 32kbit/s
+					Windows Media 9 @ 48 kbit/s
+					Real 10 and Ogg vorbis @48kbit/s
+					Sony ATRAC3plus @ 48kbit/s (far off CD-quality!)
+				- Speech
+					MPEG-4 CELP (Code Excited Linear Prediction) down to 4kbit/s
+				- Video TV (SD/DVD) quality @ 25 fps
+					MPEG-4 ASP @ 1.5Mbit/s
+					Windows Media 9 @ 1-1.5Mbit/s
+					H.264 (MPEG-4 AVC) @ 900-1000 kbit/s
+				- Video for mobiles (QCIF @ 10 fps)
+					MPEG-4 ASP @ 80kbit/s
+
+			bit rate			
+
+			Smoothening of codec output:
+			CBR - Constant Bit-Rate
+				changing codec parameters from frame to frame
+				and/or by dropping frames
+				gives constant bit rate (CBR +-3%)
+				variable perceived quality
+					content can be customized (in terms of bit rate) to specific access network capabilities
+			VBR - Variable Bit-Rate
+				bit rate change in order of 5:1 (video)
+				maintains a constant perceived quality
+					put network under variable workload conditions
+					bit rate peaks might overload the available bandwidth
+				needs more control signaling, because harder to control overload/starvation
+		
+		VOD
+			streaming of pre-stored pre-compressed media
+			possible to start-stop-pause-fast forward
+			one unicast session to each user
+
+		live content for broadcast:
+			- Internet Radio, Internet TV
+				continous capturing, compressing and streaming
+
+				Internet Radio, current situation:
+					many uses HTTP/TCP streaming to enable all users the possibility to receive the content (ex. shoutcast)
+					others like NRK uses RTSP  and RTP/UDP but over unicast, not multicast
+						down side: all users have their own stream
+						plus side: can use RTCP for server-client communication to control output.
+					SDP and SAP are new protocols to promote multicast.
+			- Near-VOD, Playlists
+				continous streaming
+			- cannot pause, fast forward osv
+			- hook into broadcast by
+				joining multicast group, or unicast reflection
+			- if many users
+				multicast (MC) - best. RTP via UDP. media server sees only one connection. clients subscribe to same IP-flow by IGMP. not supported by all networks (due to firewalls (stops MC and/or UDP) and lacking subscription support in routers)
+				unicast - limits the number of simultaneous users
+			Live Broadcast
+				stop,pause, ff not possible
+							
+
+		Browsing - HTTP using TCP for error-free download
+		Downloading - FTP using TCP for error-free download
+
+* SDP - Session Description Protocol (multicast)
+	makes it easy to join multicast streams
+	describes how and what is streamed, for live or playlists
+	describes content that are being or will be broadcast on multicast address
+	*.sdp file must be downloaded and opened locally, or it can be received on SDP broadcast on port 9875
+
+* SAP - Session Announcement Protocol	("yellow pages")
+	announcement of multicast sessions by name
+	to avoid having knowledge of specific MC addresses, or having access to the *.sdp. gives some kind of electronic program guide.
+	a multicast source periodically transmit a SAP message to 224.2.127.254 (global scope) port 9875 using a unique session name
+	users connect to the multicast by connecting to the SAP first, which has info on the correct SDP info to the multicast.
+
+* VoIP - Voice over IP
+	telephone calls from internet to PSTN (public switched telephone network)
+	uses H.323 or SIP
+
+* H.323
+	made by ITU
+	more of an architectural overview than specific protocol
+	uses specified speech codecs
+	uses RTP via UDP for audio
+	uses H.245 via TCP for negotiations
+	uses Q.931 for setup/teardown and call signals (ringing sounds, dial tones, etc)
+	
+
+* SIP - Session Initiation Protocol (app layer protocol)
+	made by IETF. RFC 3231.
+	simpler than H.323
+	more internet friendly (url tlf numbers. sip:al@item.ntnu.no)
+	session types:
+		two-party - one to one
+		multiparty - many to many
+		multicast - one to many
+	SIP for setup, RTP for audio streaming
+	possibly PSTN (tlf) interoperability problems
+	
+
+* Progressive download
+	not ordinary download, not streaming
+	+ uses ordinary web server and HTTP
+	+ error free download (over TCP)
+	+ all content will be stored on local disc
+		- large files eat disc space -> usage for smaller files
+	+ no problems with firewalls (due to TCP)
+	+ _will_ play before all is downloaded
+		+ start playing after a few seconds (buffering)
+		- problems if network access bit rate is smaller than media bit rate
+	- not applicable for live content (only pre-stored)
+
+* Media players can be browser plugins or stand-alone-applications. They provide:
+	- Decompression
+	- Jitter removal
+	- Error correction
+	- GUI
+
+* Best-effort vs QoS
+	Internet today is best-effort
+		No guarantee of..
+		 end to end delay
+		 delay jitter
+		 packet duplicates
+		 packet loss
+		 packet sequence
+		No traffic control
+		No admission control
+	QoS guarantee
+		packets have to be classified in different traffic classes. some flows prioritized.
+		desirable to minimise interference between traffic flows
+		resources link capacity, storage and processing units should be utilized efficiently
+		call admission control is needed. Admission request from flows have to include QoS requirements
+
+* Intelligent transport i Digital TV/Internet
+	- distribuerte mediaservere
+	- broadcast, multicast og unicast (alle er push)
+	- interaktiv broadcast (pull og push)
+	- internet-tilgang (pull)
+	- caching (pull)
+	- object carousel (push)
+
+	access rates from users in a cell:
+		low - individual pull directly from webserver
+		moderate - page should be cached in server 'near' the users
+		high - page put on object carousel, cyclically broadcasting it to all users

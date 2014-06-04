@@ -1,0 +1,140 @@
+The complexity of sliding-block puzzles (Hearn)
+
+There is no theory about sliding-block puzzles. The paper mentions that
+such puzzles are PSPACE-complete. The formal proof is in another paper.
+This paper merely contains an easier-to-understand explanation on how to
+convert a collection of logic gates into a sliding-block puzzle.
+
+Use the new book Games, puzzles and computation as a source instead, it
+dominates this paper.
+========================================================================
+
+The nondeterministic constraint logic model of computation (Hearn,
+Demaine, 2002)
+
+The interesting result from this paper is that sliding-block puzzles are
+PSPACE-hard, even when restrained to 1x2 pieces (dominoes) packed in a
+rectangle. A mention of generalized 15-puzzles being solvable in
+polynomial time (no reference given). That must certainly only be the
+case for finding any (possibly non-optimal) solution.
+
+The framework is nondeterministic constraint logic, which has the same
+computational power as a space-bounded Turing machine. NCL can be
+described as a planar graph. Proof of PSPACE-hardness via reduction from
+QBF (quantified boolean formula, or QSAT).
+
+Use the new book Games, puzzles and computation as a source instead, it
+dominates this paper.
+========================================================================
+
+Efficiently searching the 15-puzzle (Culberson, Schaeffer, 1994)
+
+With IDA*, search trees can still be large. Remedies: Remove duplicate
+nodes, tighter lower-bound estimates (h) or consider a hybrid version
+of A* that produces "good" non-optimal solutions (for instance:
+real-time search, linear-space best-first search, references to other
+papers)
+
+Finite state machines can do better than transposition tables! [11]
+However, I can't see how they are beneficial for Bricks.
+
+Description of endgame databases: They are used to record a subset of
+states in the search space that are close to the solution state(s). In
+single-agent search, all positions within a distance of N of the solution
+can be saved. No results of its effectiveness yet.
+
+New concept: Reduction databases. For 15-puzzles, it can answer queries
+like "given an arbitrary position, what's the minimum number of moves to
+place N designated tiles correctly"? Maximum over all database lookups
+is the lower bound of solution cost.
+
+========================================================================
+
+Playing algorithms with games, full version (Demaine)
+
+Lots of stuff about two-player games, off-topic in this context. section
+2.4 says there is little theory for analyzing one-player games
+(puzzles). it's an "open direction of research" to develop a general
+theory, similar to the two-player theory".
+
+Combinatorial game theory doesn't naturally accomodate puzzles.
+Constraint logic enters the picture, see the papers about proving that
+certain puzzles are PSPACE-complete.
+
+section 5: algorithms for puzzles. 15-puzzle is mentioned, but no
+algorithm is given.
+
+section 5.7: it's pspace-complete to determine whether it's possible
+to move a given piece, weven when all blocks are 1x2 or 2x1.
+
+========================================================================
+
+Finding optimal solutions to Rubik's Cube using pattern databases.
+
+Choice of algorithm!
+
+A*: It uses exponential space, impractical on large problems.
+
+Depth-first branch-and-bound: Not feasible, since it is difficult to
+find any solution, or a tight upper bound on the optimal solution
+length.
+
+This suggests iterative-deepening-A* (IDA*).
+
+Finding a heuristic is difficult. The 3d-version of the manhattan
+distance  for 15-puzzles isn't good enough to search to the needed depth
+(depth 14 in 3 days, need depth 18).
+
+Some nice tips regarding analysing a heuristic evaluation function.
+The effectivenes of an admissible heuristic function can be
+characterized by its expected value over the problem space.
+
+heuristic used was max of optimal solution to corner cubies, and some
+other heuristic.
+
+Estimate this to the desired accuracy by randomly sampling position and
+taking the average. If the heuristics are based on table values, take
+the average of the table values (ruben's comment: weighting? frequency?)
+
+VIKTIG kjekt for analyse
+
+Conjecture: The larger the expected value of an admissible heuristic,
+the better the performance of an admissible search algorithm using it.
+
+Let e be the expected value of the heuristic over the problem space.
+Then IDA* searching to depth d would be equivalent to brute-force
+depth-first iterative-deepening searching to depth d-e, since the
+f=g+h value of every state would be its depth plus e.
+
+formula for running time of IDA*! O(n/m), size of problem space divided
+by memory available.
+
+argument of why their O(n/m) algorith is better than someone else's
+O(n^0.5) algorithm (constant factor, memory usage, scalability to more
+memory, potential of pattern databases).
+
+Mention of an interesting algorithm: Perimeter search. Do a backwards
+search from goal until memory is exhausted. Store only the states on
+the resulting perimeter. Then, do a linear-space search until perimeter
+is reached. Unknown whether perimeter search will perform well on
+Rubik's cube.
+
+Pattern database (idea, def): Take a subset of the goals of the original
+problem, and precompute and store the exact number of moves needed to
+solve these subgoals from all possible initial states. The the exact
+solution to the subgoals is used as a lower bound heuristic for an IDA*
+search of the original problem.
+========================================================================
+
+Sliding piece puzzles (Hordern)
+
+page 5: gives definition of 4 kinds of moves
+
+
+========================================================================
+
+interesting rush hour project
+
+http://code.google.com/p/no-rush/
+
+

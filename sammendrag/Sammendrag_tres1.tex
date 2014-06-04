@@ -1,0 +1,390 @@
+\documentclass[12pt, a4paper, onecolumn]{article} % Alternativ: {report}
+\usepackage[norsk]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}       	% For å inkludere figurer
+\usepackage{ulem}			% Underline, uuline = "`svar"'
+\setcounter{secnumdepth}{0} 	% \section nummereres ikke
+%\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage{amsmath}        	% align, matriser osv.
+%\usepackage[all]{xy}
+%\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Justeringer av defaultverdier for teksten på siden:
+\setlength{\textheight}{220mm} 
+\setlength{\textwidth}{150mm}  
+\topmargin -12mm 
+\textheight 24.5cm
+\textwidth 15cm
+\oddsidemargin 0mm
+%\setlength{\parindent}{5mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%For å justere hvordan lister ser ut
+%\usepackage{tweaklist}
+%\renewcommand{\itemhook}{
+%	\setlength{\topsep}{0pt}
+%  	\setlength{\itemsep}{0pt}
+%  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{kapittel}[3][kapittel]
+{\begin{center} {\vspace{1cm}\Large Sammendrag #1 {\slshape #2 - #3}} \end{center} \begin{itemize}}
+{\end{itemize}}
+
+\newenvironment{del}[1][]
+{\item[] \uline{#1} \begin{itemize}}
+{\end{itemize}}
+
+
+\newcommand{\boxeq}[1]{
+\begin{center}
+	\fbox{\mbox{$\displaystyle #1$}}
+\end{center}}
+\newcommand{\dx}{\mbox{dx}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{kapittel}{1}{Aritmetikk og algebra}
+	\begin{del}[Regneregler for brøker]
+		\item Utvide brøk: Gang med samme tall i teller og nevner.
+			\begin{align*}
+				\dfrac{a}{b}&=\dfrac{a\cdot k}{b\cdot k}
+			\end{align*}
+		\item Forkorte brøk: del med samme tall i teller og nevner.
+			\begin{align*}
+					\dfrac{a}{b}&=\dfrac{a:k}{b:k}
+			\end{align*}
+		\item Summere brøker: Finn fellesnevner, legg deretter sammen tellerne.
+			\begin{align*}
+					\dfrac{a}{b}+\dfrac{b}{cd}&=\dfrac{a\cdot d}{b\cdot d}+\dfrac{c}{bd}\\
+																		&=\dfrac{a\cdot b+c}{bd}
+			\end{align*}
+		\item Gange brøker: Ganger tellerne med hverandre og nevnerne med hverandre.
+			\begin{align*}
+					\dfrac{a}{b}\cdot\dfrac{c}{d}&=\dfrac{ac}{bd}\hspace{2.5cm}a\cdot\dfrac{c}{d}=\dfrac{a}{1}\cdot\dfrac{c}{d}=\dfrac{a\cdot c}{1\cdot d}=\dfrac{ac}{d}
+			\end{align*}
+		\item Dividere med brøk: Multipliserer i stedet med omvendt brøk.
+			\begin{align*}
+					\dfrac{a}{b}:\dfrac{c}{d}&=\dfrac{a}{b}\cdot\dfrac{d}{c}=\dfrac{a\cdot d}{b\cdot c}
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Kvadratsetningene]
+		\item Første kvadratsetning: $(a+b)^2=a^2+2ab+b^2$
+		\item Andre kvadratsetning: $(a-b)^2=a^2-2ab+b^2$
+		\item Tredje kvadratsetning (konjugatsetningen): $(a+b)(a-b)=a^2-b^2$
+	\end{del}
+	
+	\begin{del}[Faktorisering]
+		\item Et uttrykk er faktorisert dersom det bare består av ett ledd.
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{2}{Potenser og røtter}
+	\begin{del}[Regneregler for potenser]
+		\item[$\bullet$] $a^0=1$
+		\item[$\bullet$] $a^m\cdot a^n=a^{m+n}$
+		\item[$\bullet$] $(a\cdot b)^n=a^n\cdot b^n$
+		\item[$\bullet$] $(a^m)^n=a^{m\cdot n}$
+		\item[$\bullet$] $a^{-n}=\dfrac{1}{a^n}$
+		\item[$\bullet$] $\dfrac{a^n}{a^m}=a^{n-m}$
+		\item[$\bullet$] $\left(\dfrac{a}{b}\right)^n=\dfrac{a^n}{b^n}$
+	\end{del}
+	
+	\begin{del}[Standardform]
+			\begin{align*}
+				\pm a\cdot 10^n
+			\end{align*}
+		\item[] der $1\leq a<10$ og n er et helt tall.
+		\item Positiv eksponent: hvor mange plasser kommaet er flyttet mot høyre.
+		\item Negativ eksponent: hvor mange plasser kommaet er flyttet mot venstre.
+	\end{del}
+	
+	\begin{del}[Røtter]
+		\item $\sqrt[n]{x}=a$ dersom $a^n=x$ ($\sqrt[2]{x}=\sqrt{x}$).
+		\item Er n et partall må $\sqrt[n]{x}$ være \textit{positivt}.
+	\end{del}			
+\end{kapittel}
+
+\begin{kapittel}{3}{Grafer og funksjoner}
+	\begin{del}[Rett linje]
+		\item $y=ax+b$ gir en rett linje.
+		\indent\item[$\bullet$] $b$ sier hvor linjen skjærer andreaksen.
+		\indent\item[$\bullet$] $a=\dfrac{\Delta y}{\Delta x}=\dfrac{y_2-y_2}{x_2-x_1}$
+		\item En rett linje med stigningstall $a$, som går gjennom punktet $(x_1,y_1)$ har likningen
+		\begin{align*}
+			y-y_1=a(x-x_1) \mbox{  (ettpunktsformelen)}
+		\end{align*}
+	\end{del}
+	
+	\begin{del}[Funksjon]
+		\item $y$ er en funksjon av $x$ hvis hver mulig verdi for $x$ gir nøyaktig én verdi for $y$.
+	\end{del}
+	
+	\begin{del}[Nullpunkt]
+		\item $x$ er et nullpunkt for $f$ dersom $f(x)=0$.
+	\end{del}
+	
+	\begin{del}[Løse likningssett grafisk]
+		\item Ser hvor likningene skjærer hverandre, dvs  hvor de er like. 
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{4}{Likninger og likningssystemer}
+	\begin{del}[Regneregler]
+		\item[$\bullet$] $a-b=c \Rightarrow a=b+c$
+		\item[$\bullet$] $a=d \Rightarrow a-b=d-b$
+		\item[$\bullet$] $a=d \Rightarrow a\cdot b=d\cdot b$ og $\dfrac{a}{b}=\dfrac{d}{b}$ når $b\neq 0$
+	\end{del}
+	
+	\begin{del}[Produktregelen]
+		\item Dersom $a\cdot b=0$ så er $a=0$ eller $b=0$.
+	\end{del}
+	
+	\begin{del}[Andregradsformelen]
+		\item Andregradslikningen $ax^2+bx+c=0$ har løsningene
+			\begin{align*}
+				x&=\dfrac{-b\pm \sqrt{b^2-4ac}}{2a}, a\neq 0
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Høyere grads likninger]
+		\item Se om du kan faktorisere ut den ukjente
+		\item Se om ligningen kan skrives om med en $u$ slik den ligner andregradslikningen.
+	\end{del}
+	
+	\begin{del}[Innsettingsmetoden]
+		\item Løs én av likningene for en av variablene, sett den nye likningen inn i den andre opprinnelige ligningen.
+		\item Kan også løse likningssett der den ene likningen er ikke-lineær med denne fremgangsmåten
+	\end{del}
+\end{kapittel}
+		
+
+\begin{kapittel}{5}{Polynomer og ulikheter}
+	\begin{del}[Ulikheter]
+		\item Løses på nesten samme måte som likninger
+		\item Vi kan flytte ledd over på andre siden av ulikhetstegnet hvis vi også skifter fortegn på det.
+			\begin{align*}
+				x+ 3 &> 0 \\
+				x &> -3
+			\end{align*}
+		\item Vi kan gange og dele på tall som ikke er null på begge sider
+			\begin{align*}
+				3x &> 9 \\
+				x &> 3
+			\end{align*}
+		\item Hvis tallet er negativt må vi snu ulikhetstegnet
+			\begin{align*}
+				-3x &> 9\\
+				x &< -3 
+			\end{align*}
+		\item Ulikheter med brøk eller av grad $\geq2$ løses med fortegnslinje
+	\end{del}
+
+	\begin{del}[Nullpunktsetningen]
+		\item Polynomet $P(x)$ har faktoren $(x-x_0)$ hvis og bare hvis $P(x_0)=0$.	
+	\end{del}
+	
+	\begin{del}[Faktorisering av andregardsuttrykk]
+		\item Dersom et andregradsuttrykk ikke har nullpunkter kan det ikke faktoriseres i førstegradsfaktorer.
+		\item Dersom andregradsuttrykket $ax^2 + bx + c$ har nullpunktene $x=x_1$ og $x=x_2$ er
+			\begin{align*}
+				ax^2 +bx+c = a(x-x_1)(x-x_2)
+			\end{align*}
+		\item Dersom andregradsuttrykket $ax^2 + bx + c$ har bare det ene nullpunktet $x=x_1$, er
+			\begin{align*}
+				ax^2 +bx+c = a(x-x_1)^2
+			\end{align*}
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{7}{Grenseverdier og Asymptoter}
+	\begin{del}[Kontinuerlige funksjoner]
+		\item En funksjon er kontinuerlig hvis grafen er ei kontinuerlig kurve.\\ Funksjonen er kontinuerlig for $x=a$ hvis 
+			\begin{align*}
+				\lim_{x \to a} f(x) = f(a)
+			\end{align*}
+	\end{del}
+	\begin{del}[Grenseverdier for polynomer]
+		\item Alle polynomfunksjoner er kontinuerlige og vi kan finne grenseverdier ved innsetting
+			\begin{align*}
+				\lim_{x \to 1} \left( x^2+2x-1 \right) = \left( 1^2 + 2\cdot 1 -1 = 2 \right)
+			\end{align*}
+	\end{del}
+	\begin{del}[Grenseverdier for rasjonale uttrykk]
+		\item Dersom nevneren ikke blir null, finner vi grenseverdien ved insetting.
+		\item Dersom teller og nevner blir null må vi forkorte. Da må vi ofte først faktorisere.
+		\item Dersom nevneren blir null uten at telleren blir null, finnes ikke grenseverdien. Utteykket nærmer seg $\pm \infty$
+	\end{del}
+	
+	\begin{del}[Grenseverdier når $x \to + \infty$ eller $ x \to - \infty$]
+		\item Hvis $P(x)$ og $Q(x)$ er to polynomer og vi skal regne ut
+			\begin{align*}
+				\lim_{x \to \pm \infty} \frac{P(x)}{Q(x)}.
+			\end{align*}
+		Må vi gange med $\frac{1}{x^n}$ der $n$ er graden til polynomet $Q(x)$.
+			\begin{align*}
+				\lim_{x \to \pm \infty} \frac{2x^2 + x}{x^3+4x^2} &= \lim_{x \to \pm \infty} \frac{\frac{2x^2}{x^3} + \frac{x}{x^3}}{\frac{x^3}{x^3}+\frac{4x^2}{x^3}}\\
+				  = \lim_{x \to \pm \infty} \frac{\frac{2}{x} + \frac{1}{x^2}}{1+\frac{4}{x}} = \frac{0+0}{1+0} = \frac{0}{1} = 0.
+			\end{align*}
+	\end{del}
+	\begin{del}[Vertikal asymptote]
+		\item Linja $x=x_0$ er en vertikal asymptote for en funksjon $f(x)$ hvis
+			\begin{align*}
+				f(x) \to \pm \infty \  \text{når} \  x \to x_0
+			\end{align*}
+			Vi finner en vertikal asymptote for en brøk ved å sette nevneren lik null. og forsikre oss om at telleren ikke er null samtidig
+			$\frac{x^2 -1}{(x+2)}$ har vertikal asymptote for $x=-2$ siden $x+2=0 \Rightarrow x=-2$. I telleren $2^2-1 = 3 \Rightarrow \frac{3}{0}$ og vi får en asymptote.
+	\end{del}
+	\begin{del}[Horisontal asymptote]
+		\item Linja y = a er en horisontal asymptote for $f(x)$ hvis
+			\begin{align*}
+				\lim_{x \to \pm \infty} f(x) &= a\\
+				\lim_{x \to \pm \infty} \frac{2x^2 +3x}{x^2-1} &= \lim_{x \to \pm \infty} \frac{\frac{2x^2}{x^2} +\frac{3x}{x^2}}{\frac{x^2}{x^2}-\frac{1}{x^2}}
+				=\lim_{x \to \pm \infty} \frac{2 +\frac{3}{x}}{1-\frac{1}{x^2}} = \frac{2 + 0}{1+0} = 2
+			\end{align*}
+	\end{del}
+	\begin{del}[Skrå asymptote]
+		\item Funksjonen
+			\begin{align*}
+				f(x) = ax+b + \frac{c}{dx+g}
+			\end{align*}
+			har skrå asymptote $ax+b$ og vertikal asymptote når $dx+g = 0$.
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{11}{Logaritmer og eksponentialfunksjoner}
+	\begin{del}[Den briggske logaritmen]
+		\item Den briggske logaritmen til $a$, dvs lg $a$, er det tallet vi må opphøye 10 i for å få $a$.
+		\item[] \boxeq{10^{\lg a}=a}
+	\end{del}
+	\begin{del}[Den naturlige logaritmen]
+		\item Den naturlige logaritmen til $x$, ln $x$, er det tallet vi må opphøye $e$ i for å få $x$.
+		\item[] \boxeq{e^{\ln a}=a}
+	\end{del}
+	\begin{del}[Regneregler for logaritmer]
+		\item Disse regnereglene gjelder både for naturlige og briggske logaritmer.
+		\item[$\bullet$]$\log a^x=x\cdot \log a$
+		\item[$\bullet$]$\log (a\cdot b)=\log a + \log b$
+		\item[$\bullet$]$\log \dfrac{a}{b}= \log a-\log b$
+	\end{del}
+	\begin{del}[Derivasjonsregler]
+		\item[$\bullet$] $(\ln x)' = \frac{1}{x}$
+		\item[$\bullet$] $(\ln u(x))' = \dfrac{u'(x)}{u(x)}$
+		\item[$\bullet$] $(e^x)'= e^x$
+		\item[$\bullet$] $(e^{u(x)})' = e^{u(x)}\cdot u'(x)$
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{15}{Ubestemte integraler}
+	\begin{del}[Antiderivert]
+		\item $F$ er den antideriverte til $f$ hvis \[ F'(x) = f(x) \]
+		\item Dersom $F'(x) = f(x)$, er 
+			\[\int f(x) \mbox{dx} = F(x) +C\]
+		\item ! Legger til en C siden konstanten forsvinner ved derivasjon 
+			\[ \int a\cdot f(x)+b\cdot g(x) \mbox{dx} = a\cdot F(x) b\cdot G(x) +C\]
+	\end{del}
+	
+	\begin{del}
+		\item[$\bullet$] $\displaystyle \int x^r \dx= \frac{1}{r+1}x^{r+1} +C$
+		\item[$\bullet$] $\displaystyle \int \frac{1}{x} \dx =  \ln{|x|}+C$
+		\item[$\bullet$] $\displaystyle \int \frac{1}{x+1} \dx = \ln{|x+a|}+C$
+		\item[$\bullet$] $\displaystyle \int e^{x} \dx = e^x + C$
+		\item[$\bullet$] $\displaystyle \int e^{kx} \dx = \frac{1}{k}e^x + C$
+		\item[$\bullet$] $\displaystyle \int a^x \dx = \frac{1}{\ln{a}} \cdot a^x +C \text{ når }a\neq 1$
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{16}{Bestemte integraler}
+	\begin{del}[Antiderivert]
+		\item Hvis $F$ er en antiderivert til $f$ er
+			\boxeq{\int_a^b f(x) \dx = F(b) - F(a) = \left[ F(x) \right]_a^b}
+	\end{del}
+	\begin{del}[Arealet mellom en graf og x-aksen]
+		\item La A være arealet av flaten avgrenset av x-aksen, funksjonen $f(x)$ og linjene $x=a$ og $x=b$.
+			\begin{itemize}
+				\item[$\bullet$] $f(x) > 0$ mellom $a$ og $b$: $\displaystyle A = \int_b^a f(x) \dx$
+				\item[$\bullet$] $f(x) < 0$ mellom $a$ og $b$: $\displaystyle A = -\int_b^a f(x) \dx$
+			\end{itemize}
+	\end{del}
+	\begin{del}[Arealet mellom to grafer]
+		\item Hvis arealet $A$ ligger mellom $x=a$, $x=b$ og $f(x)$ og $g(x)$, når $f(x) \geq g(x)$ mellom $x=a$ og $x=b$, er det
+		\boxeq{A = \int_a^b \left( f(x) - g(x) \right)\dx}
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{6}{Trigonometri i grader}
+	\begin{del}
+		\setlength{\unitlength}{0.5cm}
+			\begin{picture}(10, 6)
+			\put(0,1){\line(1,0){8}}
+			\put(8,1){\line(0,1){6}}
+			\put(0,1){\line(4,3){8}}
+			
+			\put(1,0){\text{Hosliggende katet}}
+			\put(9,3){\text{Motstående katet}}
+			\put(1.7,5){\text{Hypotenus}}
+			\put(01,1.2){v}
+		\end{picture}\\
+		\item $\displaystyle \sin v = \frac{\text{motstående katet}}{\text{hypotenus}}$
+		\item $\displaystyle \cos v = \frac{\text{hosliggende katet}}{\text{hypotenus}}$
+		\item $\displaystyle \tan v = \frac{\text{motstående katet}}{\text{hosliggende katet}}$
+	\end{del}
+	
+	\begin{del}[Arealsetningen]
+		\item For enhver trekant der to sider, a og b, og vinkelen v mellom de, er kjent, er arealet
+			\boxeq{A = \frac{1}{2}ab \sin v}
+	\end{del}
+	
+	\begin{del}[Enhetssirkelen]
+		\begin{figure}[!h]
+			\centering
+				\includegraphics{enhetssirkel.pdf}
+			\label{fig:enhetssirkel}
+		\end{figure}
+		\item Punktet P har koordinatene $(\cos v, \sin v)$
+		\item Hvis:
+			\begin{itemize}
+				\item[$\bullet$] $\sin v = \sin(v + n\cdot 360^{\circ})$
+				\item[$\bullet$] $\cos v = \cos(v + n\cdot 360^{\circ})$
+			\end{itemize}
+	\end{del}
+	
+	\begin{del}[Trigonometriske formler]
+		\item For alle vinkler $u$ og $v$:
+		\item[$\bullet$] $ \sin(u+v) = \sin(u)\cos(v) + \cos(u)\sin(v)$ 
+		\item[$\bullet$] $ \sin(u-v) = \sin(u)\cos(v) - \cos(u)\sin(v)$ 
+		\item[$\bullet$] $ \cos(u+v) = \cos(u)\cos(v) - \sin(u)\sin(v)$
+		\item[$\bullet$] $ \cos(u-v) = \cos(u)\cos(v) + \sin(u)\sin(v)$ 
+		\item[$\bullet$] $ \tan(u+v) = \frac{\tan(u)+\tan(v)}{1-\tan(u)\tan(v)}$
+		\item[$\bullet$] $ \tan(u-v) = \frac{\tan(u)-\tan(v)}{1+\tan(u)\tan(v)}$
+		\item[$\bullet$] $ \sin(2v) = 2\sin(v)\cos(v)$
+		\item[$\bullet$] $ \cos(2v) = \cos^2(v) - \sin^2(v)$
+		\item[$\bullet$] $ \tan(2v) = \frac{2\tan(v)}{1-\tan^2(v)}$
+		\item[$\bullet$] $ \cos^2(v) + \sin^2(v) = 1$
+		\item[$\bullet$] $ \cos(-v) = \cos(v)$
+		\item[$\bullet$] $ \sin(-v) = -\sin(v)$
+		\item[$\bullet$] $ \sin(90^{\circ} -v) = \cos(v)$
+		\item[$\bullet$] $ \cos(90^{\circ} -v) = \sin(v)$
+		\item[] \boxeq{\text{Det er ikke nødvendig å huske tabellen over eksakte trigonometriske verdier.}}
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{9}{Geometri}
+	\begin{del}[Optimering]
+		\item Vi kan optimere areal, volum eller overflate ved å derivere og bruke en betingelse.
+	\end{del}
+	\begin{del}[Sinussetningen]
+		\item For en trekant med vinkler A, B og C og sidene a,b og c gjelder det at
+		\item[] \boxeq{\dfrac{\sin A}{a}=\dfrac{\sin B}{b}=\dfrac{\sin C}{c}}
+		\item Ved å ta det inverse av formelen over kan det også vises at
+		\item[] \boxeq{\dfrac{a}{\sin A}=\dfrac{b}{\sin B}=\dfrac{c}{\sin C}}
+	\end{del}
+	\begin{del}[Cosinussetningen]
+		\item Hvis vi en trekant kjenner sidene b,c og den mellomliggende vinkelen v, er motstående siden a til vinkelen v gitt ved
+		\item[] \boxeq{a^2=b^2+c^2-2bc \cos v}
+	\end{del}
+\end{kapittel}
+
+\end{document}

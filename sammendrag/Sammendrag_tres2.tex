@@ -1,0 +1,369 @@
+\documentclass[12pt, a4paper, onecolumn]{article} % Alternativ: {report}
+\usepackage[norsk]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}       	% For å inkludere figurer
+\usepackage{ulem}			% Underline, uuline = "`svar"'
+\setcounter{secnumdepth}{0} 	% \section nummereres ikke
+%\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage{amsmath}        	% align, matriser osv.
+%\usepackage[all]{xy}
+%\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Justeringer av defaultverdier for teksten på siden:
+\setlength{\textheight}{220mm} 
+\setlength{\textwidth}{150mm}  
+\topmargin -12mm 
+\textheight 24.5cm
+\textwidth 15cm
+\oddsidemargin 0mm
+%\setlength{\parindent}{5mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%For å justere hvordan lister ser ut
+%\usepackage{tweaklist}
+%\renewcommand{\itemhook}{
+%	\setlength{\topsep}{0pt}
+%  	\setlength{\itemsep}{0pt}
+%  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{kapittel}[3][kapittel]
+{\begin{center} {\vspace{1cm}\Large Sammendrag #1 {\slshape #2 - #3}} \end{center} \begin{itemize}}
+{\end{itemize}}
+
+\newenvironment{del}[1][]
+{\item[] \uline{#1} \begin{itemize}}
+{\end{itemize}}
+
+
+\newcommand{\boxeq}[1]{
+\begin{center}
+	\fbox{\mbox{$\displaystyle #1$}}
+\end{center}}
+\newcommand{\dx}{\ dx}
+\newcommand{\style}[1]{$\displaystyle #1$}
+
+\newcommand{\huskeregel}[2][Huskeregel]{
+		\begin{center}
+			\parbox{10cm}{\textbf{#1}\hrule \vspace{2pt}#2}
+		\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{kapittel}{9}{Geometri}
+	\begin{del}[Absolutt vinkelmål (radianer)]
+		\item Det absolutte vinkelmålet til en vinkel $v$, er folholdet mellom buelengden $b$, og radien $r$.
+			\boxeq{v =\frac{b}{r}}
+	\end{del}
+	\begin{del}[Buelengde]
+		\item[] \boxeq{b = r \cdot v}
+		Med $v$ i radianer!
+	\end{del}
+	\begin{del}[Omregning]
+		\item[$n^{\circ}$] Gradtall
+		\item[$v$] radiantall
+			\begin{center}
+			 	\fbox{$\displaystyle v = \frac{n^{\circ}}{180} \cdot \pi$} \phantom{Ad hoc} \fbox{$\displaystyle n^{\circ} = \frac{v}{\pi} \cdot 180$}
+			\end{center}
+	\end{del}
+	
+	\begin{del}[Areal av sirkelsektor]
+		\item[] \boxeq{T = \frac{1}{2}\cdot v \cdot r^2 =\frac{1}{2}\cdot b \cdot r}
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{10}{Trigonometri i radianer}
+	\begin{del}[Trigonometriske likninger]
+		\item Løs som før
+			\begin{align*}
+				2 \sin (x) - \sqrt{3}  &= 0\\
+						2 \sin (x) &= \sqrt{3}\\
+						\sin (x) &= \frac{\sqrt{3}}{2}						
+			\end{align*}
+			Tegner så en enhetssirkel.
+				\begin{center}
+					\includegraphics{figurer/enhetssirkel.pdf}
+				\end{center}
+			\begin{align*}
+				x =& \frac{\pi}{3} + n \cdot 2\pi \text{ eller} \tag{tilsvarer $x_1$}\\
+				x =& \pi - \frac{\pi}{3} + n \cdot 2\pi \tag{tilsvarer $x_2$} \\
+				  =& \frac{2\pi}{3} + n \cdot 2\pi
+			\end{align*}
+			Så må vi forandre på $n$ til vi finner svar som er innenfor intervallet gitt i oppgava. 
+	\end{del}
+	
+	\begin{del}[Trigonometriske ulikheter]
+		\begin{align*}
+			2 \cos (x) - \sqrt{3} &> 0 \\
+					\cos (x)	&> \frac{\sqrt{3}}{2}			
+		\end{align*}
+		Tegner enhetssirkel
+			\begin{center}
+				\includegraphics{figurer/10cosulikhet.pdf}
+			\end{center}
+		Det grønne området på figuren er det området der likningen er gyldig. Altså der $\cos(x)>\frac{\sqrt{3}}{2}$.\\
+		Finner først vinklene der 
+			\begin{align*}
+				\cos(x) &= \frac{\sqrt{3}}{2} \\
+					x &= \frac{\pi}{6} + n \cdot 2\pi \text{ eller} \\
+					x &= -\frac{\pi}{6} + n \cdot 2\pi
+			\end{align*}
+		Tilpasser nå n til vi får løsninger som ligger innenfor intervallet gitt i oppgava.
+		\begin{itemize}
+			\item Intervall $\displaystyle x \in \left[-\pi, \pi \right] \Rightarrow -\frac{\pi}{6} < x < \frac{\pi}{6}$. 
+			\item Intervall $\displaystyle x \in \left[0, 2\pi \right>$
+				Her må vi fikse på den andre løsningen vår siden den er utenfor dette ntervallet. Setter da $n=1$.
+					\begin{align*}
+						x = \frac{\pi}{6} + 2 \pi = \frac{11\pi}{6}
+					\end{align*}
+				Begynner da ved nedre grense ($0$) og går i positiv omløpsregning til vi kommer innenfor det grønne området på figuren. Her begynner vi i det grønne området og skriver derfor:
+					\[ 0 \leq x <  ...\]
+					Vi skal altså ha med $0$. Dette ser vi fra klammen i intervallet [. Dette betyr at $0$ skal være med.
+					Vi dreier positivt til vi kommer ut av området. Da er vinkelen $\pi / 6$.
+					\[ 0 \leq x <  \frac{\pi}{6}\]
+					Vi fortsetter å dreie til vi kommer inn i området igjen. Dette skjer når vinkelen er $11 \pi / 6$. Vi skal ikke ha med vinkelen  $11 \pi / 6$ siden uttrykket ikke skal være $0$, bare \textit{større} enn $0$.
+					\[   \frac{11 \pi}{6} < x <  ... \]
+					Vi dreier videre til vi kommer ut av det grønne området eller intervallet gitt i oppgava.
+					\[   \frac{11 \pi}{6} < x <  2 \pi \]
+					Vi skal ikke ha med $2\pi$ siden dette ikke er med i intervallet ($\displaystyle x \in \left[0, 2\pi \right>$).
+		\end{itemize}
+	\end{del}
+	
+	\begin{del}[Amplitude, periode og fase]
+		\item Vi ser på funksjonen \[ \displaystyle a \sin \left( k(x-\phi)\right) +c \]
+		\begin{tabular}{cll}
+			Symbol & Beskrivelse \\ \hline
+			$A = |a|$ & amplitude, bestemmer svingemengde. \\
+			$k$ & $\displaystyle p= \frac{2\pi}{k}$ er perioden.\\
+			&  $k$ sier noe om hvor ``fort'' grafen svinger.\\
+			$\phi$ & Fasefaktor. Flytter grafen mot høyre eller venstre.\\
+			 		& $\phi > 0$ mot høyre, $\phi < 0$ mot venstre,\\
+			$c$ & Konstantledd eller likevektslinje. Flytter grafen opp og ned.
+		\end{tabular}
+	\end{del}
+	\begin{del}[Derivasjonsregler]
+		\item[] $\displaystyle \left( \sin(x) \right)' = \cos(x)$
+		\item[] $\displaystyle \left( \cos(x) \right)' = -\sin(x)$
+		\item[] $\displaystyle \left( \tan(x) \right)' = \frac{1}{\cos^2(x)} = 1 + \tan^2{x}$
+	\end{del}
+\end{kapittel}
+\clearpage
+\begin{kapittel}{15}{Integrasjon}
+	\begin{del}[Trigonometriske funksjoner]
+		\item \style{ \int \cos(x) \dx = \sin(x) +C}
+		\item \style{ \int \sin(x) \dx = -\cos(x) +C}
+		\item \style{ \int \left( 1+\tan^2(x)\right) \dx = \tan(x) +C}
+		\item \style{ \int \left( \frac{1}{\cos^2(x)} \right)\dx = \tan(x) +C}
+	\end{del}
+	
+	\begin{del}[Lineær kjerne]
+		\item \style{\int f(ax+b) \dx = \frac{1}{a}F(ax+b) +C}
+		\item[Eks.] \style{\int \frac{1}{-x+3} \dx = \frac{1}{-1}\ln|-x+3|+C = -\ln|3-x| +C}
+	\end{del}
+	
+	\begin{del}[Variabelskift]
+		\item[] \boxeq{\displaystyle \int f(u(x)) \cdot u'(x) \dx = \int f(u) \ du}
+				Altså med $u' = \frac{du}{dx} \Rightarrow u' dx = du$
+		\item[Es.]
+			\begin{align*}
+				&\int 2xe^{x^2}\ dx \text{\  med kjerne:\  } u = x^2 \Rightarrow u' = \frac{du}{dx}=2x\\
+				&\int e^{x^2}\underbrace{2x\dx}_{du} = \int e^u \ du  = e^u +C = e^{x^2} +C \\
+			\end{align*}
+		\item{evt.}
+			\begin{align*}
+				\frac{du}{dx} = 2x \Rightarrow du = 2xdx \Rightarrow dx = \frac{du}{2x} \\
+				\int 2x\cdot e^{x^2} \frac{du}{2x} = \int e^u du = e^u +C = e^{x^2} +C
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Delvis integrasjon]
+		\item \boxeq{\int u'(x)\cdot v(x) \dx = u(x) \cdot v(x) - \int u(x) \cdot v'(x) \dx}
+		\item Hva som kalles $u'(x)$ og $v(x)$ er det som gjør at integralet på høyre side blir lettest å løse.
+		\item[Eks.] \style{ \int x \cdot \ln (x) \dx}\\
+		Kan ikke derivere $\ln x$ alene. Velger derfor $v(x) = \ln x$\\
+		\begin{eqnarray*}			
+			v = \ln(x)& v'(x) = \frac{1}{x}\\
+			u'(x) = x & u = \frac{1}{2}x^2\\
+		\end{eqnarray*}
+		\begin{align*}
+			\int \overbrace{x}^{u'} \overbrace{\ln x}^{v}\dx &= \overbrace{\frac{1}{2}x^2}^{u} \cdot \overbrace{\ln x}^{v} - \int \overbrace{\frac{1}{2}x^2}^{u} \cdot \overbrace{\frac{1}{x}}^{v'} \dx\\
+				&= \frac{1}{2}x^2 \cdot \ln x - \frac{1}{2}\int x \dx\\
+				&= \frac{1}{2}x^2 \cdot \ln x - \frac{1}{2}\cdot \frac{1}{2}x^2 +C\\
+				&= \uuline{\frac{1}{2}x^2 \left( \ln x - \frac{1}{2}\right) +C}
+		\end{align*}
+	\end{del}
+	
+	\begin{del}[Delbrøksoppspaltning]
+		\item Skriv integranden som en sum av brøker der nevneren er av første grad. Integrer deretter brøkene leddvis.
+		\begin{align*}
+			\int \frac{2x +1}{(x+2)(x-1)} \dx = \int \frac{A}{(x+2)} + \frac{B}{(x-1)} \dx
+		\end{align*}
+		Altså: \style{\frac{A(x-1)}{(x+2)(x-1)} + \frac{B(x+2)}{(x+2)(x-1)} = \frac{2x+1}{(x+2)(x-1)} }\vspace{5mm} \\
+		Vi ser bare på tellerne siden nevnerene er like: \style{A(x+1)  +  B(x+2) = 2x+1}
+		\begin{itemize}
+			\item[$\uline{x=1}$] \style{0 + B\cdot 3 = 3 \Rightarrow B=1}
+			\item[$\uline{x=-2}$] \style{A(-3) + 0 = 2\cdot(-2) +1  \Rightarrow A=1}
+		\end{itemize}
+		Dette betyr at: \style{\frac{2x+1}{(x+2)(x-1)} = \frac{1}{(x+2)} + \frac{1}{(x-1)}}\\
+		Og vi kan skrive integralet som:
+		\begin{align*}
+			\int \frac{1}{(x+2)} + \frac{1}{(x-1)} \dx = \uuline{\ln|x+2| + \ln|x-1| +C}
+		\end{align*}
+	\end{del}
+	
+	\begin{del}[Differensiallikninger]
+		\begin{tabular}{r@{=}l|r@{=}l|r@{=}l}
+			$\displaystyle y' +y $&$ 3$ 			& $\displaystyle \int \frac{dy}{(3-y)} $&$ \int dx$  	& $\displaystyle 3-y $&$ C_2 e^{-x} $ \\
+			$\displaystyle \frac{dy}{dx} + y $&$ 3$ 	& $\displaystyle -\ln |3-y| $&$ x +C_1$ 				& $\displaystyle -y $&$ C_2 e^{-x} -3 $\\
+			$\displaystyle \frac{dy}{dx} $&$ 3-y$ 	& $\displaystyle  \ln|3-y| $&$ -x -C_1$				& $\displaystyle y $&$ C_3 e^{-3} +3 $\\
+			$\displaystyle dy $&$ (3-y)\cdot dx$ 	& $\displaystyle |3-y| $&$ e^{-x -C_1}$				& $\displaystyle y $&$ C e^{-x} +3$\\
+			$\displaystyle \frac{dy}{(3-y)} $&$ dx$  	& $\displaystyle 3-y $&$ \pm e^{-x}\cdot e^{-C_1}$
+		\end{tabular}
+	\end{del}
+
+\end{kapittel}	
+\begin{kapittel}{12}{Vektorer}
+	\begin{del}[Vektorer og skalarer]
+		\item En vektor er en størrelse som har retning.
+		\item En skalar er en størrelse uten retning.
+	\end{del}
+	
+	\begin{del}[Spesielle vektorer]
+		\item Nullvektor: lengde 0, parallell med alle andre vektorer. Symbol: $\vec{0}$.
+		\item Enhetsvektor: lengde 1, symbol : $\vec{e}$.
+	\end{del}
+	
+	\begin{del}[Sum av vektorer]
+		\item Når vi skal finne summen av to vektorer $\vec{u}$ og $\vec{v}$, tenger vi først $\vec{u}$. Deretter tegner vi $\vec{v}$ med utgangspunkt i endepunktet for $\vec{u}$. Summen av $\vec{u} + \vec{v}$ går nå fra utgangspunktet for $\vec{u}$ til endepunktet for $\vec{v}$.
+		\begin{center}
+		\includegraphics{figurer/vektor.pdf} \hspace{2cm}
+			\includegraphics{figurer/vektor_sum.pdf}
+		\end{center}
+		
+		\item For tre punkter $A$, $B$ og $C$ er
+		\boxeq{\vec{AB} + \vec{BC} = \vec{AC}}
+	\end{del}
+	\begin{del}[Differanse av vektor]
+		\item[Metode 1] Vi finner differansen $\vec{u} - \vec{v}$ ved å summere $\vec{u}$ og $-\vec{v}$.
+			\boxeq{\vec{u}-\vec{v} = \vec{u} + (-\vec{v})}
+			
+			\begin{center}
+				\includegraphics{figurer/vektor_sub.pdf} \hspace{2cm}
+				\includegraphics{figurer/vektor_sub2.pdf}
+			\end{center}
+			
+		\item[Metode 2] Vi kan også tegne vektorene $\vec{u}$ og $\vec{v}$ med felles utgangspunk. Vektoren $\vec{u}-\vec{v}$ går da fra endepunktet for $\vec{u}$ til endepunktet for $\vec{v}$.
+			\begin{center}
+				\includegraphics{figurer/vektor_sub3.pdf}
+			\end{center}
+		\huskeregel{
+			\begin{itemize}
+				\item[$\bullet$] Vektor vi \textbf{trekker fra} flytter \textbf{startpunktet}.
+				\item[$\bullet$] Vektor vi \textbf{legger til} flytter \textbf{endepunktet}.
+			\end{itemize}
+			}
+	\end{del}
+	\begin{del}[Produkt av tall og vektor]
+		\item Vektoren $t\cdot \vec{v}$ er parallell med $\vec{v}$ og $|t|$ ganger så lang som $\vec{v}$.
+			\begin{itemize}
+				\item $t>0$, $\vec{v}$ og $t\cdot\vec{v}$ samme retning.
+				\item $t<0$, $\vec{v}$ og $t\cdot\vec{v}$ motsatt retning.
+			\end{itemize}
+	\end{del}
+	\begin{del}[Parallelle vektorer]
+		\item To vektorer er parallelle hvis de har samme eller motsatt retning. Vektorene $\vec{v} \neq 0$ og $\vec{u} \neq 0$ er paralelle hvis og bare hvis der finnes et tall $t$ slik at $\vec{u} = t \cdot \vec{v}$.
+	\end{del}
+	
+	\begin{del}[Noen regneregler]
+		\item[$\bullet$] \style{\vec{a} + \vec{b} = \vec{b} + \vec{a}}
+		\item[$\bullet$] \style{(\vec{a}+\vec{b}) + \vec{c} = \vec{a} + (\vec{b} + \vec{c})}
+		\item[$\bullet$] \style{t \cdot (\vec{a}+\vec{b}) = t\cdot\vec{a}+t\cdot\vec{b}}
+		\item[$\bullet$] \style{t\cdot\vec{a}+s\cdot\vec{a} = (t+s)\vec{a}}
+		\item[$\bullet$] \style{s\cdot(t\vec{a}) = (s\cdot t)\vec{a}}
+	\end{del}
+
+	\begin{del}[Dekomponering]
+		\item La $\vec{a}$ og $\vec{b}$ være vektorer som ikke er parallelle, og som ikke er lik nullvektoren. For en fritt valgt vektor $\vec{v}$ fins det da ett tall $x$ og ett 						tall $y$ slik at at
+			\begin{align*}
+				\vec{v}=x\cdot\vec{a}+y\cdot\vec{b}
+			\end{align*}
+		\item Det er vanlig å dekomponere en vektor i planet vha enhetsvektorer som peker i horisontal og vertikal retning.
+			\begin{align*}
+				\vec{v}=x\cdot\vec{e_1}+y\cdot\vec{e_2}
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Skalarproduktet]
+		\item La $u$ være vinkelen mellom $\vec{a}$ og $\vec{b}$. Da er skalarproduktet av $\vec{a}$ og $\vec{b}$
+			\begin{align*}
+				\vec{a}\cdot\vec{b}=|\vec{a}|\cdot |\vec{b}|\cdot\cos{u}
+			\end{align*}
+	\end{del}	
+\end{kapittel}
+
+\begin{kapittel}{13}{Vektorer i planet}
+	\begin{del}[Regneregler for vektorkoordinater]
+		\item $[x_1,y_1]+[x_2,y_2]=[x_1+x_2,y_1+y_2]$
+		\item $[x_1,y_1]-[x_2,y_2]=[x_1-x_2,y_1-y_2]$
+		\item $t[x,y]=[tx,ty]$
+	\end{del}
+	
+	\begin{del}[Vektoren mellom to punkter]
+		\item Vektoren fra origo $O(0,0)$ til $A(x,y)$ har koordinatene \mbox{$\vec{OA}=[x,y]$}.
+		\item Vektoren fra $A(x_1,y_1)$ til $B(x_2,y_2)$ har koordinatene \mbox{$\vec{AB}=[x_2-x_1,y_2-y_1]$}.
+	\end{del}
+	
+	\begin{del}[Lengden av en vektor]
+		\item $|\vec{v}|=\sqrt{x^2+y^2}$ for $\vec{v}=[x,y]$
+		\item HER SKAL En fiGUR SOM VISEr LENGNGgEn
+	\end{del}
+	
+	\begin{del}[Avstanden mellom to vektorer]
+		\item Avstanden mellom $(x_1,y_1)$ og $(x_2,y_2)$ er
+			\begin{align*}
+				d=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Determinant]
+		\item $\left|\begin{array}{cc}a & b \\c & d\end{array}\right|=ad-bc$
+		\item Nyttig for å se om vektorer er parallelle, siden vektorene $[x_1,y_1]$ og $[x_2,y_2]$ er parallelle bare dersom
+			\begin{align*}
+				\left|\begin{array}{cc}x_1 & y_1 \\x_2 & y_2\end{array}\right|=0
+			\end{align*}
+	\end{del}
+	
+	\begin{del}[Arealet av et parallellogram]
+		\item Arealet av et parallellogram er absoluttverdien av determinanten til to vektorer som bestemmer parallellogrammet. Det vil si to sidevektorer som ikke er parallelle.
+	\end{del}
+	
+	\begin{del}[Koordinatformelen for skalarproduktet]
+		\item $[x_1,y_1]\cdot[x_2,y_2]=x_1x_2+y_1y_2$
+	\end{del}
+	
+	\begin{del}[Vinkelrette vektorer]
+		\item $\vec{a}\bot\vec{b}\Leftrightarrow \vec{a}\cdot\vec{b}=0$ for $\vec{a}\neq\vec{0}$ og $\vec{b}\neq\vec{0}$
+	\end{del}
+\end{kapittel}
+
+\begin{kapittel}{14}{Vektorer i rommet}
+	\begin{del}[Regneregler for tredimensjonale vektorer]
+		\item Regnereglene er de samme for tredimensjonale som for todimensjonale vektorer.
+	\end{del}
+	
+	\begin{del}[Dekomponering og vektorkoordinater]
+		\item Nå dekomponerer vi en vektor $\vec{v}$ i tre komponenter, langs $x$-, $y$- og $z$-aksen.
+			\begin{align*}
+				\vec{v}=x\vec{e_1}+y\vec{e_2}+z\vec{e_3}
+			\end{align*}
+	\end{del}
+
+	\begin{del}[Rekneregler for vektorkoordinater]
+		\item $[x_1,y_1,z_1]+[x_2,y_2,z_2]=[x_1+x_2,y_1+y_2,z_1+z_2]$
+		\item $[x_1,y_1,z_1]-[x_2,y_2,z_2]=[x_1-x_2,y_1-y_2,z_1-z_2]$
+		\item $t[x,y,z]=[tx,ty,tz]$
+	\end{del}
+\end{kapittel}
+\end{document}
